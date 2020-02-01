@@ -1,0 +1,67 @@
+{
+    "Extensions":[
+        {
+            "name":"BasicSkeleton",
+            "ViewerVersion":"7.x",
+            "Loadonstartup": "true",
+            "FilesToLoad":{
+                "cssfiles":["main.css"],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
+            "name":"HandleSelectionExtension",
+            "Loadonstartup": "false",
+            "FilesToLoad":{
+                "cssfiles":["main.css"],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
+            "name":"ModelSummaryExtension",
+            "Loadonstartup": "false",
+            "FilesToLoad":{
+                "cssfiles":["main.css"],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        }
+    ],
+    "ListConfig":{
+    "CreateList":"true",
+    "ListId":"extensionlist"
+    },
+    "InbuiltExtensions":[
+        "Autodesk.Fusion360.Animation",
+        "Autodesk.Section",
+        "Autodesk.DefaultTools.NavTools",
+        "Autodesk.Hyperlink",
+        "Autodesk.Measure",
+        "Autodesk.Viewing.FusionOrbit",
+        "Autodesk.BimWalk",
+        "Autodesk.GoHome",
+        "Autodesk.Explode",
+        "Autodesk.FullScreen",
+        "Autodesk.LayerManager",
+        "Autodesk.ModelStructure",
+        "Autodesk.PropertiesManager",
+        "Autodesk.ViewerSettings",
+        "Autodesk.Viewing.Wireframes",
+        "Autodesk.Viewing.ZoomWindow",
+        "Autodesk.SplitScreen",
+        "Autodesk.PDF",
+        "Autodesk.DocumentBrowser",
+        "Autodesk.Geolocation",
+        "Autodesk.CrossFadeEffects",
+        "Autodesk.Edit2D",
+        "Autodesk.ViewCubeUi",
+        "Autodesk.BIM360.Minimap",
+        "Autodesk.BIM360.GestureDocumentNavigation",
+        "Autodesk.BIM360.RollCamera",
+        "Autodesk.Viewing.SceneBuilder",
+        "Autodesk.Snapping",
+        "Autodesk.Viewing.Popout"
+    ]           
+}
