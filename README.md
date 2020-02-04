@@ -20,21 +20,23 @@ This repo is built on top of [Learn Forge Github repo](https://github.com/Autode
 
 To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:5000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
 
-# Steps to plug in new extension:
+### Steps to plug in new extension:
 
 1) Create folder in public/StandardExtensions with same name as extension name.
 Structure of the extension folder is as shown below:
+<pre>
 ExtensionName[Folder]
-        |
+        | 
         |->contents
         |     |
         |     |->main.js
         |     |->main.css
         |     |->assets[folder]
         |->config.json
+</pre>        
 Refer the BasicSkeleton Extension for boilerplate code.
 
-2) Add the Newly added Extension information in StandardExtensions/config.json
+2) Add the newly added Extension information in StandardExtensions/config.json
 Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
 
 
