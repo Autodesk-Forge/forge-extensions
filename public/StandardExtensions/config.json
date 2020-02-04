@@ -3,7 +3,7 @@
         {
             "name":"BasicSkeleton",
             "ViewerVersion":"7.x",
-            "Loadonstartup": "true",
+            "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":["main.css"],
                 "jsfiles":["main.js"]
@@ -27,12 +27,48 @@
                 "jsfiles":["main.js"]
             },
             "IncludeinList":"true"
+        },
+        {
+            "name":"CameraRotation",
+            "Loadonstartup": "true",
+            "FilesToLoad":{
+                "cssfiles":["main.css"],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
+            "name":"TransformationExtension",
+            "Loadonstartup": "true",
+            "FilesToLoad":{
+                "cssfiles":[],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
+            "name":"TranslateExtension",
+            "Loadonstartup": "true",
+            "FilesToLoad":{
+                "cssfiles":[],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
+            "name":"viewerResizerExtension",
+            "Loadonstartup": "false",
+            "FilesToLoad":{
+                "cssfiles":[],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
         }
     ],
     "ListConfig":{
     "CreateList":"true",
     "ListId":"extensionlist"
-    },
+    },    
     "InbuiltExtensions":[
         "Autodesk.Fusion360.Animation",
         "Autodesk.Section",
@@ -62,6 +98,11 @@
         "Autodesk.BIM360.RollCamera",
         "Autodesk.Viewing.SceneBuilder",
         "Autodesk.Snapping",
-        "Autodesk.Viewing.Popout"
-    ]           
+        "Autodesk.Viewing.Popout",
+        "Autodesk.VisualClusters"
+    ],
+    "InbuiltExtensionsConfig":{
+    "CreateList":"true",
+    "ListId":"inbuiltextensionlist"
+    }           
 }

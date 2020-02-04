@@ -21,6 +21,7 @@ function init(config){
             loaderconfig.initialload = true;
         }
         document.getElementById(config.ListConfig.ListId).style.display = 'block';
+        if(config.InbuiltExtensionsConfig && config.InbuiltExtensionsConfig.CreateList === "true") ListInbuiltExtensions();
         if(config.ListConfig && config.ListConfig.CreateList === "true") CreateList();
     });
 
@@ -56,6 +57,30 @@ function init(config){
                 loaderconfig.Viewer.unloadExtension(e.target.value)
             }
         }     
+    }
+
+    function ListInbuiltExtensions() {
+        let Extensions = config.InbuiltExtensions;
+        let list = document.getElementById(config.InbuiltExtensionsConfig.ListId);
+        let ExtensionList = '';
+        for (let index = 0; index < Extensions.length; index++) {
+            var element = Extensions[index];
+            ExtensionList += '<label><input class="checkextension" type="checkbox" name="'+element+'" value="'+element+'"> '+element.slice(9,element.length)+'</label><br>';
+            
+        };
+        list.innerHTML = ExtensionList;
+        let checkbox = document.getElementsByClassName('checkextension');
+        for (var i=0; i < checkbox.length; i++) {
+            checkbox.item(i).onclick = clickerFn;
+        }
+        function clickerFn(e) {
+            console.log(e.target.value)
+            if (e.target.checked) {
+                loaderconfig.Viewer.loadExtension(e.target.value)
+            } else {
+                loaderconfig.Viewer.unloadExtension(e.target.value)
+            }
+        }
     }
 
     function loadjscssfile(filename, filetype){
