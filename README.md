@@ -39,7 +39,7 @@ Refer the BasicSkeleton Extension for boilerplate code.
 2) Add the newly added Extension information in StandardExtensions/config.json
 Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
 
-> Note: If your extension relies on events like Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, 'loadonstartup' should be true in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file and the extension cannot be reloaded, because few events are fired only once in the beginning, workaround is in extension load() function check for the data needed for extension to load, if it exists, execute the custom code or else listen to event to get the data, this way it can be unloaded and loaded again without any problems.
+> Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, no need to listen to this event for loading the extension, because extension list is created after OBJECT_TREE_CREATED_EVENT is fired, so asuume tree is already loaded and write the custom code.
 
 ### Run locally
 
