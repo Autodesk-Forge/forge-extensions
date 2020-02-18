@@ -427,9 +427,8 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
 
         viewer.toolController.registerTool(_self.tool);
 
-        viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.getObjectTree);
-
+        // viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.getObjectTree);
+        viewer.toolController.activateTool(_self.tool.getName());
         console.log('Autodesk.ADN.Viewing.Extension.TransformTool loaded');
 
         return true;

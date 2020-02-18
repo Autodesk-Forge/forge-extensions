@@ -16,13 +16,15 @@ function init(config){
     })
     document.addEventListener('viewerinstance',function(e){
         loaderconfig.Viewer = e.detail.viewer;
-        if (!loaderconfig.initialload) {
-            loadStartupExtensions();
-            loaderconfig.initialload = true;
-        }
-        document.getElementById(config.ListConfig.ListId).style.display = 'block';
-        if(config.InbuiltExtensionsConfig && config.InbuiltExtensionsConfig.CreateList === "true") ListInbuiltExtensions();
-        if(config.ListConfig && config.ListConfig.CreateList === "true") CreateList();
+        loaderconfig.Viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, ()=>{
+            if (!loaderconfig.initialload) {
+                loadStartupExtensions();
+                loaderconfig.initialload = true;
+            }
+            document.getElementById(config.ListConfig.ListId).style.display = 'block';
+            if(config.InbuiltExtensionsConfig && config.InbuiltExtensionsConfig.CreateList === "true") ListInbuiltExtensions();
+            if(config.ListConfig && config.ListConfig.CreateList === "true") CreateList();
+        });
     });
 
     function loadStartupExtensions(){
@@ -36,13 +38,15 @@ function init(config){
     function CreateList() {        
         var list = document.getElementById(config.ListConfig.ListId);
         var ExtensionList = '';
+        let index = 0;
         Extensions.forEach(element => {
             if (element.IncludeinList === "true") {                
                 var name = element.name;
                 var checked = '';
                 if(element.Loadonstartup === 'true') checked = ' checked ';
-                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'"> '+name+'</label><br>';
+                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+name+'</label><br>';
             }
+            index++;
         });
         list.innerHTML = ExtensionList;
         var checkbox = document.getElementsByClassName('checkextension');
@@ -52,7 +56,7 @@ function init(config){
         function clickerFn(e) {
             console.log(e.target.value)
             if (e.target.checked) {
-                loaderconfig.Viewer.loadExtension(e.target.value)
+                loaderconfig.Viewer.loadExtension(e.target.value,Extensions[parseInt(this.dataset.index)].options)
             } else {
                 loaderconfig.Viewer.unloadExtension(e.target.value)
             }

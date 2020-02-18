@@ -25,8 +25,8 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
 
     load() {
         console.log('TransExplorerExtension is loaded!');
-        this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.getObjectTree);
+        // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.getObjectTree);
+        this.tree = this.viewer.model.getData().instanceTree;
         this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT,
             this.processSelection);
 
@@ -64,8 +64,8 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
     }
     unload() {
         console.log('TransExplorerExtension is now unloaded!');
-        this.viewer.removeEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT,
-            this.processSelection);
+        // this.viewer.removeEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this.processSelection);
+        document.getElementById(infoPanel.id).remove();
         return true;
     }
 

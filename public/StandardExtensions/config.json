@@ -1,7 +1,29 @@
 {
     "Extensions":[
         {
+            "name":"IconMarkupExtension",
+            "options":{
+                "icons": [
+                    { "dbId": 920,   "label": "300&#176;C", "css": "fas fa-thermometer-full" },
+                    { "dbId": 915,    "label": "356&#176;C", "css": "fas fa-thermometer-full" },
+                    { "dbId": 1626,  "label": "450&#176;C", "css": "fas fa-thermometer-empty" }
+                ],
+                "button": {
+                    "icon": "fa-thermometer-half",
+                    "tooltip": "Show Temperature"
+                }
+            },
+            "ViewerVersion":"7.x",
+            "Loadonstartup": "false",
+            "FilesToLoad":{
+                "cssfiles":["main.css"],
+                "jsfiles":["main.js"]
+            },
+            "IncludeinList":"true"
+        },
+        {
             "name":"BasicSkeleton",
+            "options":{},
             "ViewerVersion":"7.x",
             "Loadonstartup": "false",
             "FilesToLoad":{
@@ -12,6 +34,7 @@
         },
         {
             "name":"HandleSelectionExtension",
+            "options":{},
             "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":["main.css"],
@@ -21,6 +44,7 @@
         },
         {
             "name":"ModelSummaryExtension",
+            "options":{},
             "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":["main.css"],
@@ -30,7 +54,8 @@
         },
         {
             "name":"CameraRotation",
-            "Loadonstartup": "true",
+            "options":{},
+            "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":["main.css"],
                 "jsfiles":["main.js"]
@@ -39,7 +64,8 @@
         },
         {
             "name":"TransformationExtension",
-            "Loadonstartup": "true",
+            "options":{},
+            "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":[],
                 "jsfiles":["main.js"]
@@ -48,7 +74,8 @@
         },
         {
             "name":"TranslateExtension",
-            "Loadonstartup": "true",
+            "options":{},
+            "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":[],
                 "jsfiles":["main.js"]
@@ -57,6 +84,7 @@
         },
         {
             "name":"viewerResizerExtension",
+            "options":{},
             "Loadonstartup": "false",
             "FilesToLoad":{
                 "cssfiles":[],

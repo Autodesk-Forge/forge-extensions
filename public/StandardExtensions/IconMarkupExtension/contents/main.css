@@ -1,0 +1,45 @@
+
+#layout {
+    width: 100%;
+    height: calc(100vh);
+}
+
+#sidebar {
+    size: 35px;
+}
+
+label.markup {
+    position: absolute;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+label.update {
+    z-index: 1;
+}
+
+.temperatureBorder{
+    background-color: rgba(256, 256, 256, 0.5);
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.temperatureHigh {
+    font-size: 25px;
+    color: red;
+}
+
+.temperatureOk {
+    font-size: 20px;
+    color: blue;
+}
+
+.temperatureYellow {
+    font-size: 30px;
+    color: yellow;
+}
+
+.maintenance{
+    font-size: 40px;
+    color: green;
+}

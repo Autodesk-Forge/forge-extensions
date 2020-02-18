@@ -8,40 +8,42 @@ class TurnTableExtension extends Autodesk.Viewing.Extension {
     constructor(viewer, options) {
         super(viewer, options);
         this.viewer = viewer;
-
+        this._group = null;
+        this._button = null;
         this.customize = this.customize.bind(this);
     }
 
     load() {
         console.log('TurnTableExtension is loaded!');
-        this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.customize);
-
+        // this.viewer.getObjectTree((e)=>{console.log(e)})
+        // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize);
+        this.customize();
         return true;
     }
     unload() {
         console.log('TurnTableExtension is now unloaded!');
-
+        // Clean our UI elements if we added any
+        if (this._group) {
+            this._group.removeControl(this._button);
+            if (this._group.getNumberOfControls() === 0) {
+                this.viewer.toolbar.removeControl(this._group);
+            }
+        }
         return true;
     }
 
     customize() {
-        this.viewer.removeEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.customize);
-
-        //Start coding here ...
 
         let viewer = this.viewer;
-        viewer.hide(370);
 
-        let turnTableToolbarButton = new Autodesk.Viewing.UI.Button('turnTableButton');
-        turnTableToolbarButton.addClass('toolbarCameraRotation');
-        turnTableToolbarButton.setToolTip('Start/Stop Camera rotation');
+        this._button = new Autodesk.Viewing.UI.Button('turnTableButton');
+        this._button.addClass('toolbarCameraRotation');
+        this._button.setToolTip('Start/Stop Camera rotation');
 
-        // SubToolbar
-        this.subToolbar = new Autodesk.Viewing.UI.ControlGroup('CameraRotateToolbar');
-        this.subToolbar.addControl(turnTableToolbarButton);
-        this.viewer.toolbar.addControl(this.subToolbar);
+        // _group
+        this._group = new Autodesk.Viewing.UI.ControlGroup('CameraRotateToolbar');
+        this._group.addControl(this._button);
+        this.viewer.toolbar.addControl(this._group);
 
         let started = false;
 
@@ -66,7 +68,7 @@ class TurnTableExtension extends Autodesk.Viewing.Extension {
 
         };
 
-        turnTableToolbarButton.onClick = function (e) {
+        this._button.onClick = function (e) {
             started = !started;
             if (started) rotateCamera()
         };

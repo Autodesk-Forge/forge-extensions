@@ -8,7 +8,7 @@ class viewerResizerExtension extends Autodesk.Viewing.Extension {
     constructor(viewer, options) {
         super(viewer, options);
         this.viewer = viewer;
-
+        this.initialdimensions = null;
         this.viewWindow = this.viewer.clientContainer;
         this.maxWidth = 1024;
         this.maxHeigh = 768;
@@ -19,21 +19,27 @@ class viewerResizerExtension extends Autodesk.Viewing.Extension {
 
     load() {
         console.log('viewerResizerExtension is loaded!');
-        this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.prepareUI);
-
+        // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.prepareUI);
+        this.initialdimensions = {width:this.viewer.clientContainer.offsetParent.clientWidth,height:this.viewer.clientContainer.offsetParent.clientHeight};
+        this.prepareUI();
         return true;
     }
     unload() {
         console.log('viewerResizerExtension is now unloaded!');
-        this.viewer.removeEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.prepareUI);
-
+        // this.viewer.removeEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.prepareUI);
+        let newWidth = this.initialdimensions.width;
+        let newHeight = this.initialdimensions.height;
+        this.viewer.canvas.width = newWidth;
+        this.viewer.canvas.height = newHeight;
+        this.viewer.container.style.width = `${(newWidth)}px`;
+        this.viewer.container.style.height = `${(newHeight)}px`;
+        this.viewer.resize(newWidth, newHeight);
+        document.getElementById("controlPanel").remove();
         return true;
     }
 
     prepareUI() {
-
+        
         let controlPanel = document.createElement('div');
         controlPanel.id = "controlPanel";
         controlPanel.style.cssText = `
