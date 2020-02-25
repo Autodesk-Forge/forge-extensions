@@ -7,8 +7,8 @@ function init(config){
     var loaderconfig = {"initialload":false}
     Extensions.forEach(element => {
         let path = "StandardExtensions/"+element.name+"/contents/";
-        element.FilesToLoad.cssfiles.forEach(ele => {loadjscssfile((path+ele), 'css')});
-        element.FilesToLoad.jsfiles.forEach(ele => {loadjscssfile((path+ele), 'js')});
+        element.filestoload.cssfiles.forEach(ele => {loadjscssfile((path+ele), 'css')});
+        element.filestoload.jsfiles.forEach(ele => {loadjscssfile((path+ele), 'js')});
     });
     document.addEventListener('loadextension',function(e){
         loaderconfig.Viewer = e.detail.viewer;
@@ -29,7 +29,7 @@ function init(config){
 
     function loadStartupExtensions(){
         Extensions.forEach(element => {
-            if (element.Loadonstartup === "true") {
+            if (element.loadonstartup === "true") {
                 loaderconfig.Viewer.loadExtension(element.name);
             }
         });
@@ -40,20 +40,22 @@ function init(config){
         var ExtensionList = '';
         let index = 0;
         Extensions.forEach(element => {
-            if (element.IncludeinList === "true") {                
+            if (element.includeinlist === "true") {                
                 var name = element.name;
                 var checked = '';
-                if(element.Loadonstartup === 'true') checked = ' checked ';
-                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+name+'</label><br>';
+                if(element.loadonstartup === 'true') checked = ' checked ';
+                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+element.description+'"></i><br>';
             }
             index++;
         });
         list.innerHTML = ExtensionList;
         var checkbox = document.getElementsByClassName('checkextension');
+        var descs = document.querySelectorAll('[data-toggle="popover"]');
         for (var i=0; i < checkbox.length; i++) {
-            checkbox.item(i).onclick = clickerFn;
+            checkbox.item(i).onclick = togglecustomextension;
         }
-        function clickerFn(e) {
+        $('[data-toggle="popover"]').popover();
+        function togglecustomextension(e) {
             console.log(e.target.value)
             if (e.target.checked) {
                 loaderconfig.Viewer.loadExtension(e.target.value,Extensions[parseInt(this.dataset.index)].options)
@@ -68,16 +70,20 @@ function init(config){
         let list = document.getElementById(config.InbuiltExtensionsConfig.ListId);
         let ExtensionList = '';
         for (let index = 0; index < Extensions.length; index++) {
-            var element = Extensions[index];
-            ExtensionList += '<label><input class="checkextension" type="checkbox" name="'+element+'" value="'+element+'"> '+element.slice(9,element.length)+'</label><br>';
+            let element = Extensions[index];
+            if (element.includeinlist !== "false") {                
+                let checked = '';
+                if(element.default === 'true') checked = ' checked ';
+                ExtensionList += '<label><input class="checkextensionbuiltin" type="checkbox"'+checked+' name="'+element.name+'" value="'+element.name+'"> '+element.name.slice(9,element.name.length)+'</label><br>';
+            }
             
         };
         list.innerHTML = ExtensionList;
-        let checkbox = document.getElementsByClassName('checkextension');
+        let checkbox = document.getElementsByClassName('checkextensionbuiltin');
         for (var i=0; i < checkbox.length; i++) {
-            checkbox.item(i).onclick = clickerFn;
+            checkbox.item(i).onclick = togglebuiltinextension;
         }
-        function clickerFn(e) {
+        function togglebuiltinextension(e) {
             console.log(e.target.value)
             if (e.target.checked) {
                 loaderconfig.Viewer.loadExtension(e.target.value)
