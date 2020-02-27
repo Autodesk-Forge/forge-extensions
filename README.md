@@ -99,7 +99,7 @@ The way loose coupling between extensions and forge app is achived is with custo
 var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
 document.dispatchEvent(ViewerInstance);
 </pre>
- To load an extension emit the below event, here options is array to pass to extension constructor and is optional.
+ To load an extension emit the below event.
  <pre>
  var LoadExtensionEvent = new CustomEvent("loadextension", {
               detail: {
