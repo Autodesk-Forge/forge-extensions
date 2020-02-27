@@ -39,6 +39,27 @@ Refer the BasicSkeleton Extension for boilerplate code.
 2) Add the newly added Extension information in StandardExtensions/config.json
 Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
 
+3) Each extension folder should be self-contained code, so that it's easily shareable between projects.
+Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) for the new extension to work.
+
+Extension cofig schema:
+<pre>
+{
+    "name":"extension name registered",
+    "displayname": "display name for the extension in list",
+    "description": "description for the extension",
+    "options":{model specific information array to pass on to extension constructor},
+    "viewerversion":"viewer version",
+    "loadonstartup": "true or false",
+    "filestoload":{
+        "cssfiles":["css file(s)"],
+        "jsfiles":["js file(s)"]
+    },
+    "includeinlist":"true or false"
+}
+</pre>
+Example: [IconMarkupExtension config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/config.json)
+
 > Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, no need to listen to this event for loading the extension, because extension list is created after OBJECT_TREE_CREATED_EVENT is fired, so asuume tree is already loaded and write the custom code.
 
 ### Run locally
@@ -47,7 +68,7 @@ Install [NodeJS](https://nodejs.org).
 
 Clone this project or download it. It's recommended to install [GitHub Desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
 
-    git clone https://github.com/autodesk-forge/forge.learning.viewmodels.nodejs
+    git clone https://github.com/libvarun/StandardExtensions.git
 
 To run it, install the required packages, set the enviroment variables with your client ID & Secret and finally start it. Via command line, navigate to the folder where this repository was cloned to and use the following commands:
 
