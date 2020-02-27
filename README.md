@@ -34,7 +34,7 @@ ExtensionName[Folder]
         |     |->assets[folder]
         |->config.json
 </pre>        
-Refer the BasicSkeleton Extension for boilerplate code.
+Refer the [BasicSkeleton Extension](https://github.com/libvarun/StandardExtensions/tree/master/public/StandardExtensions/BasicSkeleton) for boilerplate code.
 
 2) Add the newly added Extension information in StandardExtensions/config.json
 Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
