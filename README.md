@@ -62,6 +62,44 @@ Example: [IconMarkupExtension config.json](https://github.com/libvarun/StandardE
 
 > Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, no need to listen to this event for loading the extension, because extension list is created after OBJECT_TREE_CREATED_EVENT is fired, so asuume tree is already loaded and write the custom code.
 
+### Understanding extensionloader and using it in forge app:
+
+The way loose coupling between extensions and forge app is achived is with custom event, if you want to use extensionloader in your forge app, follow the three steps:
+
+1) Copy paste the [StandardExtensions](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions) in public folder of your app or in the folder where the index file resides. 
+
+2) Include below script in index.html file
+<pre>
+<script src="/StandardExtensions/extensionloader.js"></script>
+</pre>
+
+3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L39):
+<pre>
+var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
+document.dispatchEvent(ViewerInstance);
+</pre>
+ To load an extension emit the below event, here options is array to pass to extension constructor and is optional.
+ <pre>
+ var LoadExtensionEvent = new CustomEvent("loadextension", {
+              detail: {
+                extension: "Extension1",
+                viewer: viewer
+             }
+         });
+ document.dispatchEvent(LoadExtensionEvent);
+ </pre>
+
+To unload extension:
+<pre>
+ var UnloadExtensionEvent = new CustomEvent("unloadextension", {
+              detail: {
+                extension: "Extension1",
+                viewer: viewer
+             }
+         });
+ document.dispatchEvent(UnloadExtensionEvent);
+</pre>
+
 ### Run locally
 
 Install [NodeJS](https://nodejs.org).
