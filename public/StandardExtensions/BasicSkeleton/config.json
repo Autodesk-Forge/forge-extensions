@@ -1,4 +1,13 @@
 {
-    "name":"Extension1",
-    "Loadonstartup": "true"
+    "name":"BasicSkeleton",
+    "displayname": "Basic Skeleton",
+    "description": "Basic Skeleton of an extension, can be used as boilerplate code.",
+    "options":{},
+    "viewerversion":"7.x",
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":["main.css"],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true"
 }

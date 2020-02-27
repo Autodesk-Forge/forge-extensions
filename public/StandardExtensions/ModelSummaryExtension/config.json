@@ -1,4 +1,12 @@
 {
     "name":"ModelSummaryExtension",
-    "Loadonstartup": "false"
+    "displayname": "Model Summary",
+    "description":"Also a demo extension to view model summary.",
+    "options":{},
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":["main.css"],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true"
 }

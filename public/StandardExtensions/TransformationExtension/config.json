@@ -1,4 +1,12 @@
 {
     "name":"TransformationExtension",
-    "Loadonstartup": "false"
+    "displayname": "Transformation",
+    "description":"Pupose of this extension is to select an element and move or transform it in any direction.",
+    "options":{},
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":[],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true"
 }

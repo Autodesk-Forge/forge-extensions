@@ -21,3 +21,11 @@ body {
 #forgeViewer {
   width: 100%;
 }
+
+.nopadding{padding: 0;}
+
+.pl{padding-left: 10px;}
+
+.left_panel{padding: 0 10px;}
+
+.right_panel{padding: 0 10px;}

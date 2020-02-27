@@ -1,4 +1,12 @@
 {
     "name":"viewerResizerExtension",
-    "Loadonstartup": "false"
+    "displayname": "Viewer Resizer",
+    "description":"Used for resizing viewer.",
+    "options":{},
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":[],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true"
 }

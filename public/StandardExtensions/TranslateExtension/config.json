@@ -1,4 +1,12 @@
 {
     "name":"TranslateExtension",
-    "Loadonstartup": "false"
+    "displayname": "Translate",
+    "description":"Gets the co-ordinates info of a select object.",
+    "options":{},
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":[],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true"
 }

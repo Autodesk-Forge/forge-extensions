@@ -47,10 +47,10 @@
   <!-- End of navbar -->
   <div class="container-fluid fill">
     <div class="row fill">
-      <div class="col-sm-2 fill">
+      <div class="col-sm-2 fill left_panel">
         <div class="panel panel-default fill">
           <div class="panel-heading" data-toggle="tooltip">
-            Buckets &amp; Objects
+            Sample Models
             <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style="cursor: pointer"></span>
           </div>
           <!-- <button class="btn btn-xs btn-info" style="float: right" id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
@@ -61,28 +61,30 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-8 fill">
+      <div class="col-sm-8 fill nopadding">
+        <div class="tobegin"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Select a model to load viewer and extensions</div>
         <div id="forgeViewer"></div>
       </div>
-      <div class="col-sm-2 fill">
-        <div class="col-md-12">
-          <h2>Extensions</h2>
+      <div class="col-sm-2 fill right_panel">
+
+        <div class="panel panel-default fill">
+          <h4 class="panel-heading" data-toggle="tooltip">Extensions</h4>
         
-          <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs pl">
             <li class="active"><a data-toggle="tab" href="#custom">Custom</a></li>
             <li><a data-toggle="tab" href="#inbuilt">Built-in</a></li>
           </ul>
         
-          <div class="tab-content">
+          <div class="tab-content pl">
             <div id="custom" class="tab-pane fade in active">
               <div id="extensionlist"></div>
             </div>
             <div id="inbuilt" class="tab-pane fade">
               <div id="inbuiltextensionlist"></div>
             </div>
-          </div>
-          
+          </div>          
         </div>
+
       </div>
     </div>
   </div>
