@@ -120,6 +120,7 @@ To unload extension:
          });
  document.dispatchEvent(UnloadExtensionEvent);
 </pre>
+>Note: If the extension needs additional UI elements, first option we suggest is use the viewer UI [Autodesk.Viewing.UI.DockingPanel](https://forge.autodesk.com/en/docs/viewer/v2/reference/javascript/dockingpanel)
 
 ### Run locally
 
