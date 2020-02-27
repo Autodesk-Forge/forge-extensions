@@ -60,7 +60,67 @@ Extension config schema:
 </pre>
 Example: [IconMarkupExtension config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/config.json)
 
-> Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, no need to listen to this event for loading the extension, because extension list is created after OBJECT_TREE_CREATED_EVENT is fired, so asuume tree is already loaded and write the custom code.
+> Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, in load function check if the data is already loaded, if not only then add the event listener, below code shows the structure.
+<pre>
+class MyExtension extends Autodesk.Viewing.Extension {
+    ...
+    load() {
+        ...
+        if (this.viewer.model.getInstanceTree()) {
+            this.onTreeReady();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.onTreeReady.bind(this));
+        }
+        ...
+    }
+    ...
+    onTreeReady() {
+        const tree = this.viewer.model.getInstanceTree();
+        ...
+    }
+    ...
+}
+</pre>
+Example: [IconMarkupExtension load function](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/contents/main.js#L10)
+
+### Understanding extensionloader and using it in forge app:
+
+The way loose coupling between extensions and forge app is achived is with custom event, if you want to use extensionloader in your forge app, follow the three steps:
+
+1) Copy paste the [StandardExtensions](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions) in public folder of your app or in the folder where the index file resides. 
+
+2) Include below script in index.html file
+<pre>
+<script src="/StandardExtensions/extensionloader.js"></script>
+</pre>
+
+3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L39):
+<pre>
+var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
+document.dispatchEvent(ViewerInstance);
+</pre>
+ To load an extension emit the below event, here options is array to pass to extension constructor and is optional.
+ <pre>
+ var LoadExtensionEvent = new CustomEvent("loadextension", {
+              detail: {
+                extension: "Extension1",
+                viewer: viewer
+             }
+         });
+ document.dispatchEvent(LoadExtensionEvent);
+ </pre>
+
+To unload extension:
+<pre>
+ var UnloadExtensionEvent = new CustomEvent("unloadextension", {
+              detail: {
+                extension: "Extension1",
+                viewer: viewer
+             }
+         });
+ document.dispatchEvent(UnloadExtensionEvent);
+</pre>
+>Note: If the extension needs additional UI elements, first option we suggest is use the viewer UI [Autodesk.Viewing.UI.DockingPanel](https://forge.autodesk.com/en/docs/viewer/v2/reference/javascript/dockingpanel)
 
 ### Run locally
 
