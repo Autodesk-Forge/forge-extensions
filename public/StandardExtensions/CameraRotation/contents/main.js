@@ -14,10 +14,11 @@ class TurnTableExtension extends Autodesk.Viewing.Extension {
     }
 
     load() {
-        console.log('TurnTableExtension is loaded!');
-        // this.viewer.getObjectTree((e)=>{console.log(e)})
-        // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize);
-        this.customize();
+        if (this.viewer.model.getInstanceTree()) {
+            this.customize();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize());
+        }        
         return true;
     }
     unload() {

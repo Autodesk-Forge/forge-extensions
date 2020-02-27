@@ -14,17 +14,18 @@ function init(config){
         loaderconfig.Viewer = e.detail.viewer;
         e.detail.viewer.loadExtension(e.detail.extension);
     })
+    document.addEventListener('unloadextension',function(e){
+        e.detail.viewer.unloadExtension(e.detail.extension);
+    })
     document.addEventListener('viewerinstance',function(e){
         loaderconfig.Viewer = e.detail.viewer;
-        loaderconfig.Viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, ()=>{
-            if (!loaderconfig.initialload) {
-                loadStartupExtensions();
-                loaderconfig.initialload = true;
-            }
-            document.getElementById(config.ListConfig.ListId).style.display = 'block';
-            if(config.InbuiltExtensionsConfig && config.InbuiltExtensionsConfig.CreateList === "true") ListInbuiltExtensions();
-            if(config.ListConfig && config.ListConfig.CreateList === "true") CreateList();
-        });
+        if (!loaderconfig.initialload) {
+            loadStartupExtensions();
+            loaderconfig.initialload = true;
+        }
+        document.getElementById(config.ListConfig.ListId).style.display = 'block';
+        if(config.InbuiltExtensionsConfig && config.InbuiltExtensionsConfig.CreateList === "true") ListInbuiltExtensions();
+        if(config.ListConfig && config.ListConfig.CreateList === "true") CreateList();
     });
 
     function loadStartupExtensions(){

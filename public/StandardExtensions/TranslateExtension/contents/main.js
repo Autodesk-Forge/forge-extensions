@@ -19,14 +19,16 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
 
         this.processSelection = this.processSelection.bind(this);
         this.getFragmentWorldMatrixByNodeId = this.getFragmentWorldMatrixByNodeId.bind(this);
-        this.getObjectTree = this.getObjectTree.bind(this);
         this.findNodeNameById = this.findNodeNameById.bind(this);
     }
 
     load() {
         console.log('TransExplorerExtension is loaded!');
-        // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.getObjectTree);
-        this.tree = this.viewer.model.getData().instanceTree;
+        if (this.viewer.model.getInstanceTree()) {
+            this.customize();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize());
+        }
         this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT,
             this.processSelection);
 
@@ -69,11 +71,8 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         return true;
     }
 
-    getObjectTree() {
-        this.viewer.removeEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
-            this.getObjectTree);
+    customize(){
         this.tree = this.viewer.model.getData().instanceTree;
-
     }
 
     processSelection(event) {

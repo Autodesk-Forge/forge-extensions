@@ -7,15 +7,11 @@ class IconMarkupExtension extends Autodesk.Viewing.Extension {
     }
 
     load() {
-        const updateIconsCallback = () => {
-            if (this._enabled) {
-                this.updateIcons();
-            }
-        };
-        this.viewer.addEventListener(Autodesk.Viewing.CAMERA_CHANGE_EVENT, updateIconsCallback);
-        this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, updateIconsCallback);
-        this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, updateIconsCallback);
-        this.viewer.addEventListener(Autodesk.Viewing.SHOW_EVENT, updateIconsCallback);
+        if (this.viewer.model.getInstanceTree()) {
+            this.customize();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize());
+        }        
         return true;
     }
 
@@ -29,6 +25,18 @@ class IconMarkupExtension extends Autodesk.Viewing.Extension {
         }
         $('#' + this.viewer.clientContainer.id + ' div.adsk-viewing-viewer label.markup').remove();
         return true;
+    }
+
+    customize(){
+        const updateIconsCallback = () => {
+            if (this._enabled) {
+                this.updateIcons();
+            }
+        };
+        this.viewer.addEventListener(Autodesk.Viewing.CAMERA_CHANGE_EVENT, updateIconsCallback);
+        this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, updateIconsCallback);
+        this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, updateIconsCallback);
+        this.viewer.addEventListener(Autodesk.Viewing.SHOW_EVENT, updateIconsCallback);
     }
 
     onToolbarCreated() {

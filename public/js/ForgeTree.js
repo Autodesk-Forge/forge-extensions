@@ -111,6 +111,7 @@ function prepareAppBucketTree() {
     if (data != null && data.node != null && data.node.type == 'object') {
       $("#forgeViewer").empty();
       var urn = data.node.id;
+      document.getElementsByClassName('tobegin')[0].style.display = 'none';
       getForgeToken(function (access_token) {
         jQuery.ajax({
           url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',

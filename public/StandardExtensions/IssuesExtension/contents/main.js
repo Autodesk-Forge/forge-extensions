@@ -6,8 +6,22 @@ class IssuesExtension extends Autodesk.Viewing.Extension {
         this._issues = options.issues || [];
     }
     load() {
-        this._enabled = false;
+        if (this.viewer.model.getInstanceTree()) {
+            this.customize();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.customize());
+        }        
+        return true;
+    }
 
+    unload() {
+        this.viewer.toolbar.removeControl(this.toolbar);
+        this._removeMarkups();
+        return true;
+    }
+
+    customize(){
+        this._enabled = false;
         const updateMarkupsCallback = () => {
             if (this._enabled) {
                 this._updateMarkups();
@@ -18,13 +32,6 @@ class IssuesExtension extends Autodesk.Viewing.Extension {
         this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, updateMarkupsCallback);
         this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, updateMarkupsCallback);
         this.viewer.addEventListener(Autodesk.Viewing.SHOW_EVENT, updateMarkupsCallback);
-        return true;
-    }
-
-    unload() {
-        this.viewer.toolbar.removeControl(this.toolbar);
-        this._removeMarkups();
-        return true;
     }
 
     onToolbarCreated() {
