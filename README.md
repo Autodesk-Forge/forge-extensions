@@ -42,7 +42,7 @@ Refer First element in Extensions array in [StandardExtensions/config.json](http
 3) Each extension folder should be self-contained code, so that it's easily shareable between projects.
 Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) for the new extension to work.
 
-Extension cofig schema:
+Extension config schema:
 <pre>
 {
     "name":"extension name registered",
