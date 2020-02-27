@@ -60,7 +60,28 @@ Extension config schema:
 </pre>
 Example: [IconMarkupExtension config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/config.json)
 
-> Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, no need to listen to this event for loading the extension, because extension list is created after OBJECT_TREE_CREATED_EVENT is fired, so asuume tree is already loaded and write the custom code.
+> Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, in load function check if the data is already loaded, if not only then add the event listener, below code shows the structure.
+<pre>
+class MyExtension extends Autodesk.Viewing.Extension {
+    ...
+    load() {
+        ...
+        if (this.viewer.model.getInstanceTree()) {
+            this.onTreeReady();
+        } else {
+            this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, this.onTreeReady.bind(this));
+        }
+        ...
+    }
+    ...
+    onTreeReady() {
+        const tree = this.viewer.model.getInstanceTree();
+        ...
+    }
+    ...
+}
+</pre>
+Example: [IconMarkupExtension load function](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/contents/main.js#L10)
 
 ### Understanding extensionloader and using it in forge app:
 
