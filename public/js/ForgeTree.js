@@ -137,6 +137,10 @@ function autodeskCustomMenu(autodeskNode) {
 
   switch (autodeskNode.type) {
     case "bucket":
+      if(autodeskNode.id === "extensionmanagersample"){
+        alert('upload in the below transient bucket');
+        break;
+      } 
       items = {
         uploadFile: {
           label: "Upload file",

@@ -90,15 +90,20 @@ router.post('/buckets', async (req, res, next) => {
 // POST /api/forge/oss/objects - uploads new object to given bucket.
 // Request body must be structured as 'form-data' dictionary
 // with the uploaded file under "fileToUpload" key, and the bucket name under "bucketKey".
-router.post('/objects', multer({ dest: 'uploads/' }).single('fileToUpload'), async (req, res, next) => {
+router.post('/objects', multer({ dest: 'uploads/' }).single('fileToUpload'), async (req, res, next) => {    
     fs.readFile(req.file.path, async (err, data) => {
         if (err) {
             next(err);
         }
         try {
             // Upload an object to bucket using [ObjectsApi](https://github.com/Autodesk-Forge/forge-api-nodejs-client/blob/master/docs/ObjectsApi.md#uploadObject).
-            await new ObjectsApi().uploadObject(req.body.bucketKey, req.file.originalname, data.length, data, {}, req.oauth_client, req.oauth_token);
-            res.status(200).end();
+            if(req.body.bucketKey === "extensionmanagersample"){
+                res.status(500).end();
+            } 
+            else{
+                await new ObjectsApi().uploadObject(req.body.bucketKey, req.file.originalname, data.length, data, {}, req.oauth_client, req.oauth_token);
+                res.status(200).end();                
+            }
         } catch(err) {
             next(err);
         }

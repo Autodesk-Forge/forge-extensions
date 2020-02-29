@@ -42,10 +42,12 @@ function init(config){
         let index = 0;
         Extensions.forEach(element => {
             if (element.includeinlist === "true") {                
-                var name = element.name;
-                var checked = '';
+                let name = element.name;
+                let checked, moredetails = '';
+                
+                if(element.bloglink) moredetails = '<br>Details:  <a target="_blank" href="'+element.bloglink+'">Blog link</a> ';
                 if(element.loadonstartup === 'true') checked = ' checked ';
-                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="'+element.description+'"></i><br>';
+                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle exl_wrapper"><span class="exl_tooltip">'+element.description+moredetails+' </span></i><br>';
             }
             index++;
         });

@@ -1,7 +1,7 @@
 {
     "name":"IconMarkupExtension",
     "displayname": "Icon Markups",
-    "description": "Markups example, bases on options provided in config, info is showed on particular object referring dbid.",
+    "description": "Markups example, based on options provided in config, info is showed on particular object referring dbid.",
     "options":{
         "icons": [
             { "dbId": 920,   "label": "300&#176;C", "css": "temperatureHigh fas fa-thermometer-full" },
@@ -19,5 +19,6 @@
         "cssfiles":["main.css"],
         "jsfiles":["main.js"]
     },
+    "bloglink":"https://forge.autodesk.com/blog/placing-custom-markup-dbid",
     "includeinlist":"true"
 }
