@@ -34,7 +34,7 @@ ExtensionName[Folder]
         |     |->assets[folder]
         |->config.json
 </pre>        
-Refer the BasicSkeleton Extension for boilerplate code.
+Refer the [BasicSkeleton Extension](https://github.com/libvarun/StandardExtensions/tree/master/public/StandardExtensions/BasicSkeleton) for boilerplate code.
 
 2) Add the newly added Extension information in StandardExtensions/config.json
 Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
@@ -99,7 +99,7 @@ The way loose coupling between extensions and forge app is achived is with custo
 var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
 document.dispatchEvent(ViewerInstance);
 </pre>
- To load an extension emit the below event, here options is array to pass to extension constructor and is optional.
+ To load an extension programmatically, emit the below event.
  <pre>
  var LoadExtensionEvent = new CustomEvent("loadextension", {
               detail: {
