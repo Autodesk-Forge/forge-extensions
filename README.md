@@ -55,6 +55,7 @@ Extension config schema:
         "cssfiles":["css file(s)"],
         "jsfiles":["js file(s)"]
     },
+    "bloglink":"Blog link for working explanation of the extension (optional)",
     "includeinlist":"true or false"
 }
 </pre>
