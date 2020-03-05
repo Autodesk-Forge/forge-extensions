@@ -1,4 +1,4 @@
-# forge.viewer.standard.extensions
+# forge.extensions
 
 [![Node.js](https://img.shields.io/badge/Node.js-4.4.3-blue.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-2.15.1-blue.svg)](https://www.npmjs.com/)
@@ -10,7 +10,7 @@
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
 
-## Live Demo: https://standard-extensions.herokuapp.com/
+## Live Demo: https://forge-extensions.herokuapp.com/
 
 # Description
 
