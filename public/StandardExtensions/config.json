@@ -15,7 +15,7 @@
                     "tooltip": "Show Temperature"
                 }
             },
-            "viewerversion":"7.x",
+            "viewerversion":"7.*",
             "loadonstartup": "false",
             "filestoload":{
                 "cssfiles":["main.css"],
@@ -33,7 +33,7 @@
                     {"_id":"5e20652936692809cc0fd279","createdAt":"2020-01-16T13:29:13.242Z","partId":920,"author":"Sherbaum Valery","text":"Minor","__v":0},{"_id":"5e2065ea36692809cc0fd27a","createdAt":"2020-01-16T13:32:26.252Z","partId":915,"author":"John Golley","text":"Urgent","__v":0},{"_id":"5e233abc36692809cc0fd27f","createdAt":"2020-01-18T17:05:00.737Z","partId":1626,"author":"Sherbaum Valery","text":"Major","__v":0}
                 ]
             },
-            "viewerversion":"7.x",
+            "viewerversion":"7.*",
             "loadonstartup": "false",
             "filestoload":{
                 "cssfiles":["main.css"],
@@ -46,7 +46,7 @@
             "displayname": "Basic Skeleton",
             "description": "Basic Skeleton of an extension, can be used as boilerplate code.",
             "options":{},
-            "viewerversion":"7.x",
+            "viewerversion":"7.*",
             "loadonstartup": "false",
             "filestoload":{
                 "cssfiles":["main.css"],

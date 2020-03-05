@@ -8,5 +8,8 @@
         "cssfiles":["main.css"],
         "jsfiles":["main.js"]
     },
-    "includeinlist":"true"
+    "includeinlist":"true",
+    "externaldependencies":[
+        {"type": "js", "link": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"}
+    ]
 }

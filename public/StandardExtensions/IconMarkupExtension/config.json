@@ -13,12 +13,16 @@
             "tooltip": "Show Temperature"
         }
     },
-    "viewerversion":"7.x",
+    "viewerversion":"7.*",
     "loadonstartup": "false",
     "filestoload":{
         "cssfiles":["main.css"],
         "jsfiles":["main.js"]
     },
     "bloglink":"https://forge.autodesk.com/blog/placing-custom-markup-dbid",
-    "includeinlist":"true"
+    "includeinlist":"true",
+    "externaldependencies":[
+        {"type": "js", "link": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"}
+    ]
+        
 }
