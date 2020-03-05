@@ -18,6 +18,10 @@ This sample is part of the [Learn Forge](http://learnforge.autodesk.io) tutorial
 Autodesk Forge Viewer Extensions with loose coupling, so that it's easy to plug and play in other projects.
 This repo is built on top of [Learn Forge Github repo](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
 
+# Setup
+
+To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:5000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
+
 ### Run locally
 
 Install [NodeJS](https://nodejs.org).
@@ -43,10 +47,6 @@ Windows (use **Node.js command line** from the Start menu)
     npm start
 
 Open the browser: [http://localhost:5000](http://localhost:5000).
-
-# Setup
-
-To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:5000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
 
 ### Steps to plug in new extension:
 
