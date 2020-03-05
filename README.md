@@ -10,11 +10,39 @@
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
 
+## Live Demo: https://standard-extensions.herokuapp.com/
+
 # Description
 
 This sample is part of the [Learn Forge](http://learnforge.autodesk.io) tutorials.
 Autodesk Forge Viewer Extensions with loose coupling, so that it's easy to plug and play in other projects.
 This repo is built on top of [Learn Forge Github repo](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
+
+### Run locally
+
+Install [NodeJS](https://nodejs.org).
+
+Clone this project or download it. It's recommended to install [GitHub Desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
+
+    git clone https://github.com/libvarun/StandardExtensions.git
+
+To run it, install the required packages, set the enviroment variables with your client ID & Secret and finally start it. Via command line, navigate to the folder where this repository was cloned to and use the following commands:
+
+Mac OSX/Linux (Terminal)
+
+    npm install
+    export FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM DEVELOPER PORTAL>>
+    export FORGE_CLIENT_SECRET=<<YOUR CLIENT SECRET>>
+    npm start
+
+Windows (use **Node.js command line** from the Start menu)
+
+    npm install
+    set FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM DEVELOPER PORTAL>>
+    set FORGE_CLIENT_SECRET=<<YOUR CLIENT SECRET>>
+    npm start
+
+Open the browser: [http://localhost:5000](http://localhost:5000).
 
 # Setup
 
@@ -122,32 +150,6 @@ To unload extension:
  document.dispatchEvent(UnloadExtensionEvent);
 </pre>
 >Note: If the extension needs additional UI elements, first option we suggest is use the viewer UI [Autodesk.Viewing.UI.DockingPanel](https://forge.autodesk.com/en/docs/viewer/v2/reference/javascript/dockingpanel)
-
-### Run locally
-
-Install [NodeJS](https://nodejs.org).
-
-Clone this project or download it. It's recommended to install [GitHub Desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
-
-    git clone https://github.com/libvarun/StandardExtensions.git
-
-To run it, install the required packages, set the enviroment variables with your client ID & Secret and finally start it. Via command line, navigate to the folder where this repository was cloned to and use the following commands:
-
-Mac OSX/Linux (Terminal)
-
-    npm install
-    export FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM DEVELOPER PORTAL>>
-    export FORGE_CLIENT_SECRET=<<YOUR CLIENT SECRET>>
-    npm start
-
-Windows (use **Node.js command line** from the Start menu)
-
-    npm install
-    set FORGE_CLIENT_ID=<<YOUR CLIENT ID FROM DEVELOPER PORTAL>>
-    set FORGE_CLIENT_SECRET=<<YOUR CLIENT SECRET>>
-    npm start
-
-Open the browser: [http://localhost:5000](http://localhost:5000).
 
 ## Packages used
 
