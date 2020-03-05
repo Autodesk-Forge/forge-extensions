@@ -97,7 +97,7 @@ router.post('/objects', multer({ dest: 'uploads/' }).single('fileToUpload'), asy
         }
         try {
             // Upload an object to bucket using [ObjectsApi](https://github.com/Autodesk-Forge/forge-api-nodejs-client/blob/master/docs/ObjectsApi.md#uploadObject).
-            if(req.body.bucketKey === "extensionmanagersample"){
+            if(req.body.bucketKey === "samplemodels"){
                 res.status(500).end();
             } 
             else{
