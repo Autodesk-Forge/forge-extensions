@@ -16,13 +16,15 @@
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////
 
+$(document).ready(function() {
+
 loadJSON(init);
 
 function init(config){    
     var Extensions = config.Extensions;
     var loaderconfig = {"initialload":false}
     Extensions.forEach(element => {
-        let path = "StandardExtensions/"+element.name+"/contents/";
+        let path = "extensions/"+element.name+"/contents/";
         element.filestoload.cssfiles.forEach(ele => {loadjscssfile((path+ele), 'css')});
         element.filestoload.jsfiles.forEach(ele => {loadjscssfile((path+ele), 'js')});
     });
@@ -132,7 +134,7 @@ function init(config){
 function loadJSON(callback) {   
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'StandardExtensions/config.json', true);
+    xobj.open('GET', 'extensions/config.json', true);
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
             callback(JSON.parse(xobj.responseText));
@@ -140,3 +142,5 @@ function loadJSON(callback) {
     };
     xobj.send(null);  
 }
+
+});

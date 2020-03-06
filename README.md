@@ -23,7 +23,7 @@ This repo is built on top of [Learn Forge Github repo](https://github.com/Autode
 
 # Setup
 
-To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:5000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
+To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
 
 ### Run locally
 
@@ -49,7 +49,7 @@ Windows (use **Node.js command line** from the Start menu)
     set FORGE_CLIENT_SECRET=<<YOUR CLIENT SECRET>>
     npm start
 
-Open the browser: [http://localhost:5000](http://localhost:5000).
+Open the browser: [http://localhost:3000](http://localhost:3000).
 
 ### Steps to plug in new extension:
 

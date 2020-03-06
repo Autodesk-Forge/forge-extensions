@@ -6,9 +6,9 @@
             "description": "Markups example, based on options provided in config, info is showed on particular object referring dbid.",
             "options":{
                 "icons": [
-                    { "dbId": 920,   "label": "300&#176;C", "css": "temperatureHigh fas fa-thermometer-full" },
-                    { "dbId": 915,    "label": "356&#176;C", "css": "temperatureBorder temperatureHigh fas fa-thermometer-full" },
-                    { "dbId": 1626,  "label": "450&#176;C", "css": "temperatureBorder temperatureOk fas fa-thermometer-empty" }
+                    { "dbId": 920,   "label": "26&#176;C", "css": "temperatureHigh fas fa-thermometer-full" },
+                    { "dbId": 915,    "label": "30&#176;C", "css": "temperatureBorder temperatureHigh fas fa-thermometer-full" },
+                    { "dbId": 1626,  "label": "40&#176;C", "css": "temperatureBorder temperatureOk fas fa-thermometer-empty" }
                 ],
                 "button": {
                     "icon": "fa-thermometer-half",
