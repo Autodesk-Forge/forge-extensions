@@ -53,7 +53,7 @@ Open the browser: [http://localhost:3000](http://localhost:3000).
 
 ### Steps to plug in new extension:
 
-1) Create folder in public/StandardExtensions with same name as extension name.
+1) Create folder in public/extensions with same name as extension name.
 Structure of the extension folder is as shown below:
 <pre>
 ExtensionName[Folder]
@@ -65,13 +65,13 @@ ExtensionName[Folder]
         |     |->assets[folder]
         |->config.json
 </pre>        
-Refer the [BasicSkeleton Extension](https://github.com/libvarun/StandardExtensions/tree/master/public/StandardExtensions/BasicSkeleton) for boilerplate code.
+Refer the [BasicSkeleton Extension](https://github.com/libvarun/forge-extensions/tree/master/public/extensions/BasicSkeleton) for boilerplate code.
 
-2) Add the newly added Extension information in StandardExtensions/config.json
-Refer First element in Extensions array in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) file for congiguration options.
+2) Add the newly added Extension information in extensions/config.json
+Refer First element in Extensions array in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) file for congiguration options.
 
 3) Each extension folder should be self-contained code, so that it's easily shareable between projects.
-Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [StandardExtensions/config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/config.json) for the new extension to work.
+Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) for the new extension to work.
 
 Extension config schema:
 <pre>
@@ -90,7 +90,7 @@ Extension config schema:
     "includeinlist":"true or false"
 }
 </pre>
-Example: [IconMarkupExtension config.json](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/config.json)
+Example: [IconMarkupExtension config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/IconMarkupExtension/config.json)
 
 > Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, in load function check if the data is already loaded, if not only then add the event listener, below code shows the structure.
 <pre>
@@ -113,20 +113,20 @@ class MyExtension extends Autodesk.Viewing.Extension {
     ...
 }
 </pre>
-Example: [IconMarkupExtension load function](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions/IconMarkupExtension/contents/main.js#L10)
+Example: [IconMarkupExtension load function](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/IconMarkupExtension/contents/main.js#L26)
 
 ### Understanding extensionloader and using it in forge app:
 
 The way loose coupling between extensions and forge app is achived is with custom event, if you want to use extensionloader in your forge app, follow the three steps:
 
-1) Copy paste the [StandardExtensions](https://github.com/libvarun/StandardExtensions/blob/master/public/StandardExtensions) in public folder of your app or in the folder where the index file resides. 
+1) Copy paste the [extensions](https://github.com/libvarun/forge-extensions/tree/master/public/extensions) in public folder of your app or in the folder where the index file resides. 
 
 2) Include below script in index.html file
 <pre>
-<script src="/StandardExtensions/extensionloader.js"></script>
+<script src="/extensions/extensionloader.js"></script>
 </pre>
 
-3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/libvarun/StandardExtensions/blob/master/public/js/ForgeViewer.js#L39):
+3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/libvarun/forge-extensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/libvarun/forge-extensions/blob/master/public/js/ForgeViewer.js#L39):
 <pre>
 var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
 document.dispatchEvent(ViewerInstance);
