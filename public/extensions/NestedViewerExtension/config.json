@@ -1,0 +1,13 @@
+{
+    "name": "NestedViewerExtension",
+    "displayname": "Viewer in Viewer",
+    "description": "Extension providing a panel with another viewer.",
+    "options": {},
+    "viewerversion": "7.*",
+    "loadonstartup": "false",
+    "filestoload": {
+        "cssfiles": ["main.css"],
+        "jsfiles": ["main.js"]
+    },
+    "includeinlist": "true"
+}
