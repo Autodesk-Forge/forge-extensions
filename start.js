@@ -18,6 +18,20 @@
 
 const path = require('path');
 const express = require('express');
+const fs = require('fs');
+
+let masterconfigpath = './public/extensions/config.json';
+let extensionsconfig = require(masterconfigpath);
+let source = './public/extensions';
+let extensions = [];
+fs.readdirSync(source, { withFileTypes: true }).filter(dirent => dirent.isDirectory()).forEach(folder => {
+    let econfig = require(source+'/'+folder.name+'/config.json')
+    extensions.push(econfig);
+  });
+extensionsconfig.Extensions = extensions;
+fs.writeFileSync (masterconfigpath, JSON.stringify(extensionsconfig), function(err) {
+    if (err) throw err;
+    });
 
 const PORT = process.env.PORT || 3000;
 const config = require('./config');
