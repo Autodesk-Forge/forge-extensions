@@ -67,10 +67,7 @@ ExtensionName[Folder]
 </pre>        
 Refer the [BasicSkeleton Extension](https://github.com/libvarun/forge-extensions/tree/master/public/extensions/BasicSkeleton) for boilerplate code.
 
-2) Add the newly added Extension information in extensions/config.json
-Refer First element in Extensions array in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) file for congiguration options.
-
-3) Each extension folder should be self-contained code, so that it's easily shareable between projects.
+2) Each extension folder should be self-contained code, so that it's easily shareable between projects.
 Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) for the new extension to work.
 
 Extension config schema:
