@@ -433,13 +433,45 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
 
     _self.tool = null;
 
+    _self.toolactivated = false;
 
     ///////////////////////////////////////////////////////
     // extension load callback
     //
     ///////////////////////////////////////////////////////
     _self.load = function () {
+       
+        console.log('Autodesk.ADN.Viewing.Extension.TransformTool loaded');
 
+        return true;
+    };
+
+    _self.onToolbarCreated = function () {
+        // Create a new toolbar group if it doesn't exist
+        this._group = this.viewer.toolbar.getControl('transformExtensionsToolbar');
+        if (!this._group) {
+            this._group = new Autodesk.Viewing.UI.ControlGroup('transformExtensionsToolbar');
+            this.viewer.toolbar.addControl(this._group);
+        }
+
+        // Add a new button to the toolbar group
+        this._button = new Autodesk.Viewing.UI.Button('transformExtensionButton');
+        this._button.onClick = (ev) => {
+            // Execute an action here
+            if (!_self.toolactivated) {
+                _self.initialize();
+                _self.toolactivated = true;
+            } else {
+                viewer.toolController.deactivateTool(_self.tool.getName());
+                _self.toolactivated = false;
+            }
+        };
+        this._button.setToolTip('Transform Extension');
+        this._button.addClass('transformextensionicon');
+        this._group.addControl(this._button);
+    };
+
+    _self.initialize = function () {
         _self.tool = new TransformTool();
 
         viewer.toolController.registerTool(_self.tool);
@@ -449,9 +481,6 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
         } else {
             this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, _self.customize());
         }
-        console.log('Autodesk.ADN.Viewing.Extension.TransformTool loaded');
-
-        return true;
     };
 
     _self.customize = function (){
@@ -464,8 +493,14 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
     ///////////////////////////////////////////////////////
     _self.unload = function () {
 
-        viewer.toolController.deactivateTool(_self.tool.getName());
-
+        if(_self.tool) viewer.toolController.deactivateTool(_self.tool.getName());
+        // Clean our UI elements if we added any
+        if (this._group) {
+            this._group.removeControl(this._button);
+            if (this._group.getNumberOfControls() === 0) {
+                this.viewer.toolbar.removeControl(this._group);
+            }
+        }
         console.log('Autodesk.ADN.Viewing.Extension.TransformTool unloaded');
 
         return true;

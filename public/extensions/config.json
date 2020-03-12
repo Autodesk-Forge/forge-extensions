@@ -97,7 +97,7 @@
             "options":{},
             "loadonstartup": "false",
             "filestoload":{
-                "cssfiles":[],
+                "cssfiles":["main.css"],
                 "jsfiles":["main.js"]
             },
             "includeinlist":"true"

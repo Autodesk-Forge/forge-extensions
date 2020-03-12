@@ -18,6 +18,13 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
         if (this._panel) {
             this._panel.uninitialize();
         }
+        // Clean our UI elements if we added any
+        if (this._group) {
+            this._group.removeControl(this._button);
+            if (this._group.getNumberOfControls() === 0) {
+                this.viewer.toolbar.removeControl(this._group);
+            }
+        }
         console.log('NestedViewerExtension has been unloaded.');
         return true;
     }
