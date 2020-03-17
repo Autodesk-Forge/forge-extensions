@@ -103,7 +103,7 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this.container.style.width = '500px';
         this.container.style.height = '400px';
 
-        this.title = this.createTitleBar(this.titleLabel || this.container.id); // height: 50px
+        this.title = this.createTitleBar(this.titleLabel || this.container.id);
         this.container.appendChild(this.title);
 
         this._container = document.createElement('div');
@@ -111,7 +111,7 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._container.style.left = '0';
         this._container.style.top = '50px';
         this._container.style.width = '100%';
-        this._container.style.height = '350px';
+        this._container.style.height = '330px'; // 400px - 50px (title bar) - 20px (footer)
         this.container.appendChild(this._container);
 
         this._dropdown = document.createElement('select');
@@ -124,6 +124,14 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._container.appendChild(this._dropdown);
 
         this.initializeMoveHandlers(this.container);
+        this._footer = this.createFooter();
+        this.footerInstance.resizeCallback = (width, height) => {
+            this._container.style.height = `${height - 50 /* title bar */ - 20 /* footer */}px`;
+            if (this._viewer) {
+                this._viewer.resize();
+            }
+        };
+        this.container.appendChild(this._footer);
     }
 
     setVisible(show) {
