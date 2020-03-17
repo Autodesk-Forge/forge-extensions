@@ -47,7 +47,13 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
                 this._panel = new NestedViewerPanel(this.viewer);
                 this._panel.urn = this.viewer.model.getData().urn;
             }
-            this._panel.setVisible(!this._panel.isVisible());
+            if (this._panel.isVisible()) {
+                this._panel.setVisible(false);
+                this._button.removeClass('active');
+            } else {
+                this._panel.setVisible(true);
+                this._button.addClass('active');
+            }
         };
         this._button.setToolTip('Nested Viewer');
         this._button.addClass('nestedViewerExtensionIcon');
