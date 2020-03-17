@@ -181,4 +181,7 @@ Please see the [LICENSE](LICENSE) file for full details.
 ## Written by
 
 Varun Patil [@VarunPatil578](https://twitter.com/VarunPatil578), [Forge Partner Development](http://forge.autodesk.com)
+
+Petr Broz [@ipetrbroz](https://twitter.com/ipetrbroz), [Forge Partner Development](http://forge.autodesk.com)
+
 Augusto Goncalves [@augustomaia](https://twitter.com/augustomaia), [Forge Partner Development](http://forge.autodesk.com)
