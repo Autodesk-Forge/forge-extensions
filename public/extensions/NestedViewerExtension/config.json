@@ -1,7 +1,7 @@
 {
     "name": "NestedViewerExtension",
     "displayname": "Viewer in Viewer",
-    "description": "Extension providing a panel with another viewer.",
+    "description": "Nested viewer where viewables related to the currently loaded model can be viewed.",
     "options": {},
     "viewerversion": "7.*",
     "loadonstartup": "false",
@@ -9,5 +9,6 @@
         "cssfiles": ["main.css"],
         "jsfiles": ["main.js"]
     },
-    "includeinlist": "true"
+    "includeinlist": "true",
+    "bloglink": "https://github.com/libvarun/forge-extensions/tree/master/public/extensions/NestedViewerExtension/README.md"
 }
