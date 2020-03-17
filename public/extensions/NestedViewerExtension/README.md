@@ -12,6 +12,7 @@ Forge Viewer extension showing viewables related to the currently loaded model i
 
 The extension accepts an optional _options_ object with the following properties:
 - `filter` - array of allowed viewable "roles" ("2d", "3d", or both), by default: `["2d", "3d"]`
+- `crossSelection` - boolean flag for cross-selecting elements after they're selected in the main or the nested viewer, `false` by default
 
 ## How it works
 

@@ -3,7 +3,8 @@
     "displayname": "Viewer in Viewer",
     "description": "Nested viewer where viewables related to the currently loaded model can be viewed.",
     "options": {
-        "filter": ["2d", "3d"]
+        "filter": ["2d", "3d"],
+        "crossSelection": true
     },
     "viewerversion": "7.*",
     "loadonstartup": "false",
