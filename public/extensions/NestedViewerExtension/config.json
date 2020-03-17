@@ -2,7 +2,9 @@
     "name": "NestedViewerExtension",
     "displayname": "Viewer in Viewer",
     "description": "Nested viewer where viewables related to the currently loaded model can be viewed.",
-    "options": {},
+    "options": {
+        "filter": ["2d", "3d"]
+    },
     "viewerversion": "7.*",
     "loadonstartup": "false",
     "filestoload": {

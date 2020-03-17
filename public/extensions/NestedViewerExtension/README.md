@@ -8,6 +8,11 @@ Forge Viewer extension showing viewables related to the currently loaded model i
 - Click the <img src="https://img.icons8.com/color/64/000000/picture-in-picture.png" width=16> icon in the toolbar
 - New dialog will open, showing a dropdown list of all viewables available for the currently loaded model
 
+## Configuration
+
+The extension accepts an optional _options_ object with the following properties:
+- `filter` - array of allowed viewable "roles" ("2d", "3d", or both), by default: `["2d", "3d"]`
+
 ## How it works
 
 The extension uses another instance of [GuiViewer3D](https://forge.autodesk.com/en/docs/viewer/v7/reference/Viewing/GuiViewer3D/)

@@ -1,6 +1,8 @@
 class NestedViewerExtension extends Autodesk.Viewing.Extension {
     constructor(viewer, options) {
         super(viewer, options);
+        options = options || {};
+        this._filter = options.filter || ['2d', '3d'];
         this._group = null;
         this._button = null;
         this._panel = null;
@@ -44,7 +46,7 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
         this._button = new Autodesk.Viewing.UI.Button('nestedViewerExtensionButton');
         this._button.onClick = (ev) => {
             if (!this._panel) {
-                this._panel = new NestedViewerPanel(this.viewer);
+                this._panel = new NestedViewerPanel(this.viewer, this._filter);
                 this._panel.urn = this.viewer.model.getData().urn;
             }
             if (this._panel.isVisible()) {
@@ -62,9 +64,10 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
 }
 
 class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
-    constructor(viewer) {
+    constructor(viewer, filter) {
         super(viewer.container, 'nested-viewer-panel', 'Nested Viewer');
         this._urn = '';
+        this._filter = filter;
     }
 
     get urn() {
@@ -119,7 +122,8 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
     _updateDropdown() {
         const onDocumentLoadSuccess = (doc) => {
             this._manifest = doc;
-            const geometries = doc.getRoot().search({ type: 'geometry' });
+            const filterGeom = (geom) => this._filter.indexOf(geom.data.role) !== -1;
+            const geometries = doc.getRoot().search({ type: 'geometry' }).filter(filterGeom);
             this._dropdown.innerHTML = geometries.map(function (geom) {
                 return `<option value="${geom.guid()}">${geom.name()}</option>`;
             }).join('\n');
