@@ -1,4 +1,4 @@
-# forge.extensions
+# forge-extensions
 
 [![Node.js](https://img.shields.io/badge/Node.js-4.4.3-blue.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-2.15.1-blue.svg)](https://www.npmjs.com/)
@@ -67,11 +67,8 @@ ExtensionName[Folder]
 </pre>        
 Refer the [BasicSkeleton Extension](https://github.com/libvarun/forge-extensions/tree/master/public/extensions/BasicSkeleton) for boilerplate code.
 
-2) Add the newly added Extension information in extensions/config.json
-Refer First element in Extensions array in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) file for congiguration options.
-
-3) Each extension folder should be self-contained code, so that it's easily shareable between projects.
-Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing. Config details need to be added in [extensions/config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/config.json) for the new extension to work.
+2) Each extension folder should be self-contained code, so that it's easily shareable between projects.
+Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing.
 
 Extension config schema:
 <pre>
@@ -184,4 +181,7 @@ Please see the [LICENSE](LICENSE) file for full details.
 ## Written by
 
 Varun Patil [@VarunPatil578](https://twitter.com/VarunPatil578), [Forge Partner Development](http://forge.autodesk.com)
+
+Petr Broz [@ipetrbroz](https://twitter.com/ipetrbroz), [Forge Partner Development](http://forge.autodesk.com)
+
 Augusto Goncalves [@augustomaia](https://twitter.com/augustomaia), [Forge Partner Development](http://forge.autodesk.com)

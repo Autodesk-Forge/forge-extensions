@@ -1,20 +1,30 @@
 class NestedViewerExtension extends Autodesk.Viewing.Extension {
     constructor(viewer, options) {
         super(viewer, options);
+        options = options || {};
+        this._filter = options.filter || ['2d', '3d'];
+        this._crossSelection = !!options.crossSelection;
         this._group = null;
         this._button = null;
         this._panel = null;
         this._onModelLoaded = this.onModelLoaded.bind(this);
+        this._onSelectionChanged = this.onSelectionChanged.bind(this);
     }
 
     load() {
         this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, this._onModelLoaded);
+        if (this._crossSelection) {
+            this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
+        }
         console.log('NestedViewerExtension has been loaded.');
         return true;
     }
 
     unload() {
         this.viewer.removeEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, this._onModelLoaded);
+        if (this._crossSelection) {
+            this.viewer.removeEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
+        }
         if (this._panel) {
             this._panel.uninitialize();
         }
@@ -35,6 +45,12 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
         }
     }
 
+    onSelectionChanged() {
+        if (this._panel) {
+            this._panel.select(this.viewer.getSelection());
+        }
+    }
+
     onToolbarCreated() {
         this._group = this.viewer.toolbar.getControl('nestedViewerExtensionToolbar');
         if (!this._group) {
@@ -44,10 +60,16 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
         this._button = new Autodesk.Viewing.UI.Button('nestedViewerExtensionButton');
         this._button.onClick = (ev) => {
             if (!this._panel) {
-                this._panel = new NestedViewerPanel(this.viewer);
+                this._panel = new NestedViewerPanel(this.viewer, this._filter, this._crossSelection);
                 this._panel.urn = this.viewer.model.getData().urn;
             }
-            this._panel.setVisible(!this._panel.isVisible());
+            if (this._panel.isVisible()) {
+                this._panel.setVisible(false);
+                this._button.removeClass('active');
+            } else {
+                this._panel.setVisible(true);
+                this._button.addClass('active');
+            }
         };
         this._button.setToolTip('Nested Viewer');
         this._button.addClass('nestedViewerExtensionIcon');
@@ -56,9 +78,12 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
 }
 
 class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
-    constructor(viewer) {
+    constructor(viewer, filter, crossSelection) {
         super(viewer.container, 'nested-viewer-panel', 'Nested Viewer');
         this._urn = '';
+        this._parentViewer = viewer;
+        this._filter = filter;
+        this._crossSelection = crossSelection;
     }
 
     get urn() {
@@ -78,7 +103,7 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this.container.style.width = '500px';
         this.container.style.height = '400px';
 
-        this.title = this.createTitleBar(this.titleLabel || this.container.id); // height: 50px
+        this.title = this.createTitleBar(this.titleLabel || this.container.id);
         this.container.appendChild(this.title);
 
         this._container = document.createElement('div');
@@ -86,7 +111,7 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._container.style.left = '0';
         this._container.style.top = '50px';
         this._container.style.width = '100%';
-        this._container.style.height = '350px';
+        this._container.style.height = '330px'; // 400px - 50px (title bar) - 20px (footer)
         this.container.appendChild(this._container);
 
         this._dropdown = document.createElement('select');
@@ -99,6 +124,14 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._container.appendChild(this._dropdown);
 
         this.initializeMoveHandlers(this.container);
+        this._footer = this.createFooter();
+        this.footerInstance.resizeCallback = (width, height) => {
+            this._container.style.height = `${height - 50 /* title bar */ - 20 /* footer */}px`;
+            if (this._viewer) {
+                this._viewer.resize();
+            }
+        };
+        this.container.appendChild(this._footer);
     }
 
     setVisible(show) {
@@ -107,13 +140,25 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
             this._viewer = new Autodesk.Viewing.GuiViewer3D(this._container);
             this._viewer.start();
             this._onDropdownChanged();
+            if (this._crossSelection) {
+                this._viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, () => {
+                    this._parentViewer.select(this._viewer.getSelection());
+                });
+            }
+        }
+    }
+
+    select(dbids) {
+        if (this._viewer) {
+            this._viewer.select(dbids);
         }
     }
 
     _updateDropdown() {
         const onDocumentLoadSuccess = (doc) => {
             this._manifest = doc;
-            const geometries = doc.getRoot().search({ type: 'geometry' });
+            const filterGeom = (geom) => this._filter.indexOf(geom.data.role) !== -1;
+            const geometries = doc.getRoot().search({ type: 'geometry' }).filter(filterGeom);
             this._dropdown.innerHTML = geometries.map(function (geom) {
                 return `<option value="${geom.guid()}">${geom.name()}</option>`;
             }).join('\n');
