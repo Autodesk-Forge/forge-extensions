@@ -9,5 +9,5 @@
         "cssfiles":["main.css"],
         "jsfiles":["main.js"]
     },
-    "includeinlist":"true"
+    "includeinlist":"false"
 }

@@ -61,19 +61,39 @@ function init(config){
         Extensions.forEach(element => {
             if (element.includeinlist === "true") {                
                 let name = element.name;
-                let checked, moredetails = '';
-                
-                if(element.bloglink) moredetails = '<br>Details:  <a target="_blank" href="'+element.bloglink+'">Blog link</a> ';
+                let checked = '';  
                 if(element.loadonstartup === 'true') checked = ' checked ';
-                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle exl_wrapper"><span class="exl_tooltip">'+element.description+moredetails+' </span></i><br>';
+                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle details" data-toggle="popover" ></i><br>';
             }
             index++;
         });
         list.innerHTML = ExtensionList;
         var checkbox = document.getElementsByClassName('checkextension');
-        var descs = document.querySelectorAll('[data-toggle="popover"]');
         for (var i=0; i < checkbox.length; i++) {
             checkbox.item(i).onclick = togglecustomextension;
+            let index = checkbox.item(i).attributes['data-index'].value;
+            let element = Extensions[index];
+            let  moredetails = '';
+            let gif = '';                
+            if(element.bloglink) moredetails = 'Details:  <a target="_blank" href="'+element.bloglink+'">Blog link</a>';
+            if(element.gif) gif = '<br><img src="./extensions/'+element.name+'/extension.gif" alt="Sample Image">';
+            let contents = '<p>'+Extensions[index].description+'</p>'+moredetails+gif;
+            $(checkbox.item(i).parentNode).next().popover({
+                html : true,
+                container: 'body',
+                boundary: 'viewport',
+                title: Extensions[index].displayname,
+                placement:'left',
+                content : contents
+            });
+            $("html").on("mouseup", function (e) {
+                var l = $(e.target);
+                if (l[0].className.indexOf("popover") == -1) {
+                    $(".popover").each(function () {
+                        $(this).popover("hide");
+                    });
+                }
+            });
         }
         $('[data-toggle="popover"]').popover();
         function togglecustomextension(e) {

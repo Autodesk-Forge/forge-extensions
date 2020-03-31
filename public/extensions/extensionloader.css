@@ -1,7 +1,10 @@
 #extensionlist{padding: 10px 0px;}
 .tobegin{position: absolute;font-size: 20px;opacity: 0.5;top: 15%;left: 5%;}
 .extensions-heading{margin-top: 0;}
-
+.popover{
+min-width: 520px !important;
+  max-width: 520px !important;
+}
 .exl_wrapper {
     position: relative;
     z-index: 2333;

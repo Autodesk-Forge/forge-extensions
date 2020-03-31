@@ -9,5 +9,6 @@
         "cssfiles": ["main.css"],
         "jsfiles": ["main.js"]
     },
+    "gif": "extension.gif",
     "includeinlist": "true"
 }

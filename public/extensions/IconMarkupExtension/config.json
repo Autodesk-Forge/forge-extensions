@@ -21,6 +21,7 @@
     },
     "bloglink":"https://forge.autodesk.com/blog/placing-custom-markup-dbid",
     "includeinlist":"true",
+    "gif": "extension.gif",
     "externaldependencies":[
         {"type": "js", "link": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"}
     ]
