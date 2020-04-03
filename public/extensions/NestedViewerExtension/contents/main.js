@@ -119,6 +119,7 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._dropdown.style.left = '1em';
         this._dropdown.style.top = '1em';
         this._dropdown.style.setProperty('z-index', '100');
+        this._dropdown.setAttribute('id', 'nestedViewerExtensionDropdown');
         this._dropdown.addEventListener('change', this._onDropdownChanged.bind(this))
         this._dropdown.addEventListener('mousedown', function (ev) { ev.stopPropagation(); }); // prevent DockingPanel from kidnapping clicks on the dropdown
         this._container.appendChild(this._dropdown);
