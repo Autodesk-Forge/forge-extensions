@@ -5,33 +5,47 @@
 ![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
 
-[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
-[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
-[![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
-[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://forge.autodesk.com/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://forge.autodesk.com/)
+[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://forge.autodesk.com/)
+[![Viewer](https://img.shields.io/badge/Viewer-v7-green.svg)](http://forge.autodesk.com/)
 
-## Live Demo: https://forge-extensions.herokuapp.com/
+[![Level](https://img.shields.io/badge/Level-Basic-blue.svg)](http://forge.autodesk.com/)
 
 # Description
 
-This sample is part of the [Learn Forge](http://learnforge.autodesk.io) tutorials.
-Autodesk Forge Viewer Extensions with loose coupling, so that it's easy to plug and play in other projects.
-This repo is built on top of [Learn Forge Github repo](https://github.com/Autodesk-Forge/learn.forge.viewmodels/tree/nodejs)
+This sample is a collection of extensions ready to be reused. Just add reference to the required files, load and use. Check each extension documentation for details.
 
-### Extensions List:
-1) Transform
+1. [Camera Rotation](public/extensions/CameraRotation)
+2. [Icon Markup](public/extensions/IconMarkupExtension)
+3. [Nested Viewer](public/extensions/NestedViewerExtension)
+4. [Transform](public/extensions/TransformationExtension)
+
+Extensions were created using a [Basic Skeleton](public/extensions/BasicSkeleton).
+
+This sample is based on the [Learn Forge](http://learnforge.autodesk.io) tutorials in the section *View modelss*.
+
+## Thumbnail
+
+![thumbnail](/thumbnail.PNG)
+
+## Live Demo
+
+Extensions are dynamically loaded and unloaded for testing on the live version.
+
+[forge-extensions.autodesk.io](https://forge-extensions.autodesk.io)
 
 # Setup
 
-To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/forge/callback/oauth** as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
+To use this sample, you will need Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use `http://localhost:3000/api/forge/callback/oauth` as the Callback URL, although it is not used on a 2-legged flow. Finally, take note of the **Client ID** and **Client Secret**.
 
-### Run locally
+## Run locally
 
 Install [NodeJS](https://nodejs.org).
 
 Clone this project or download it. It's recommended to install [GitHub Desktop](https://desktop.github.com/). To clone it via command line, use the following (**Terminal** on MacOSX/Linux, **Git Shell** on Windows):
 
-    git clone https://github.com/libvarun/forge-extensions.git
+    git clone https://github.com/autodesk-forge/forge-extensions.git
 
 To run it, install the required packages, set the enviroment variables with your client ID & Secret and finally start it. Via command line, navigate to the folder where this repository was cloned to and use the following commands:
 
@@ -51,7 +65,7 @@ Windows (use **Node.js command line** from the Start menu)
 
 Open the browser: [http://localhost:3000](http://localhost:3000).
 
-### Steps to plug in new extension:
+# Steps to plug in new extension
 
 1) Create folder in public/extensions with same name as extension name.
 Structure of the extension folder is as shown below:
@@ -65,7 +79,7 @@ ExtensionName[Folder]
         |     |->assets[folder]
         |->config.json
 </pre>        
-Refer the [BasicSkeleton Extension](https://github.com/libvarun/forge-extensions/tree/master/public/extensions/BasicSkeleton) for boilerplate code.
+Refer the [BasicSkeleton Extension](https://github.com/autodesk-forge/forge-extensions/tree/master/public/extensions/BasicSkeleton) for boilerplate code.
 
 2) Each extension folder should be self-contained code, so that it's easily shareable between projects.
 Extension[Folder]/config.json is meant for keeping the config of an extension and for sharing.
@@ -87,7 +101,7 @@ Extension config schema:
     "includeinlist":"true or false"
 }
 </pre>
-Example: [IconMarkupExtension config.json](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/IconMarkupExtension/config.json)
+Example: [IconMarkupExtension config.json](https://github.com/autodesk-forge/forge-extensions/blob/master/public/extensions/IconMarkupExtension/config.json)
 
 > Note: If your extension relies on event Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT to load, in load function check if the data is already loaded, if not only then add the event listener, below code shows the structure.
 <pre>
@@ -110,20 +124,20 @@ class MyExtension extends Autodesk.Viewing.Extension {
     ...
 }
 </pre>
-Example: [IconMarkupExtension load function](https://github.com/libvarun/forge-extensions/blob/master/public/extensions/IconMarkupExtension/contents/main.js#L26)
+Example: [IconMarkupExtension load function](https://github.com/autodesk-forge/forge-extensions/blob/master/public/extensions/IconMarkupExtension/contents/main.js#L26)
 
-### Understanding extensionloader and using it in forge app:
+# Understanding extensionloader and using it in forge app
 
 The way loose coupling between extensions and forge app is achived is with custom event, if you want to use extensionloader in your forge app, follow the three steps:
 
-1) Copy paste the [extensions](https://github.com/libvarun/forge-extensions/tree/master/public/extensions) in public folder of your app or in the folder where the index file resides. 
+1) Copy paste the [extensions](https://github.com/autodesk-forge/forge-extensions/tree/master/public/extensions) in public folder of your app or in the folder where the index file resides. 
 
 2) Include below script in index.html file
 <pre>
 <script src="/extensions/extensionloader.js"></script>
 </pre>
 
-3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/libvarun/forge-extensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/libvarun/forge-extensions/blob/master/public/js/ForgeViewer.js#L39):
+3) Here's the linking part between the app and the extensionloader, in viewer [onDocumentLoadSuccess](https://github.com/autodesk-forge/forge-extensions/blob/master/public/js/ForgeViewer.js#L35) function, emit an event to inform the extensionloader that viewer has loaded the model with the below [code](https://github.com/autodesk-forge/forge-extensions/blob/master/public/js/ForgeViewer.js#L39):
 <pre>
 var ViewerInstance = new CustomEvent("viewerinstance", {detail: {viewer: viewer}});      
 document.dispatchEvent(ViewerInstance);
@@ -180,8 +194,8 @@ Please see the [LICENSE](LICENSE) file for full details.
 
 ## Written by
 
-Varun Patil [@VarunPatil578](https://twitter.com/VarunPatil578), [Forge Partner Development](http://forge.autodesk.com)
+The [Forge Advocates](http://forge.autodesk.com) team:
 
-Petr Broz [@ipetrbroz](https://twitter.com/ipetrbroz), [Forge Partner Development](http://forge.autodesk.com)
-
-Augusto Goncalves [@augustomaia](https://twitter.com/augustomaia), [Forge Partner Development](http://forge.autodesk.com)
+* Varun Patil [@VarunPatil578](https://twitter.com/VarunPatil578)
+* Petr Broz [@ipetrbroz](https://twitter.com/ipetrbroz)
+* Augusto Goncalves [@augustomaia](https://twitter.com/augustomaia)

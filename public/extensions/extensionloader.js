@@ -75,7 +75,7 @@ function init(config){
             let element = Extensions[index];
             let  moredetails = '';
             let gif = '';                
-            if(element.bloglink) moredetails = 'Details:  <a target="_blank" href="'+element.bloglink+'">Blog link</a>';
+            if(element.bloglink) moredetails = '<a target="_blank" href="'+element.bloglink+'">Learn more</a>';
             if(element.gif) gif = '<br><img src="./extensions/'+element.name+'/extension.gif" alt="Sample Image">';
             let contents = '<p>'+Extensions[index].description+'</p>'+moredetails+gif;
             $(checkbox.item(i).parentNode).next().popover({

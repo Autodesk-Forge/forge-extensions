@@ -4,9 +4,7 @@
     "description": "Markups example, based on options provided in config, info is showed on particular object referring dbid.",
     "options":{
         "icons": [
-            { "dbId": 920,   "label": "300&#176;C", "css": "temperatureHigh fas fa-thermometer-full" },
-            { "dbId": 915,    "label": "356&#176;C", "css": "temperatureBorder temperatureHigh fas fa-thermometer-full" },
-            { "dbId": 1626,  "label": "450&#176;C", "css": "temperatureBorder temperatureOk fas fa-thermometer-empty" }
+            { "dbId": 9256,   "label": "300&#176;C", "css": "fas fa-thermometer-full" }
         ],
         "button": {
             "icon": "fa-thermometer-half",
@@ -19,11 +17,11 @@
         "cssfiles":["main.css"],
         "jsfiles":["main.js"]
     },
-    "bloglink":"https://forge.autodesk.com/blog/placing-custom-markup-dbid",
+    "bloglink":"https://github.com/autodesk-forge/forge-extensions/tree/master/public/extensions/IconMarkupExtension",
     "includeinlist":"true",
     "gif": "extension.gif",
     "externaldependencies":[
-        {"type": "js", "link": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"}
+        {"type": "css", "link": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"}
     ]
         
 }
