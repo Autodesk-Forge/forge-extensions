@@ -27,7 +27,7 @@ This sample is based on the [Learn Forge](http://learnforge.autodesk.io) tutoria
 
 ## Thumbnail
 
-![thumbnail](/thumbnail.png)
+![thumbnail](/thumbnail.PNG)
 
 ## Live Demo
 
