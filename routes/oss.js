@@ -74,6 +74,8 @@ router.get('/buckets', async (req, res, next) => {
 
 // POST /api/forge/oss/buckets - creates a new bucket.
 // Request body must be a valid JSON in the form of { "bucketKey": "<new_bucket_name>" }.
+// This sample will not allow creation of new buckets
+/*
 router.post('/buckets', async (req, res, next) => {
     let payload = new PostBucketsPayload();
     payload.bucketKey = config.credentials.client_id.toLowerCase() + '-' + req.body.bucketKey;
@@ -86,6 +88,7 @@ router.post('/buckets', async (req, res, next) => {
         next(err);
     }
 });
+*/
 
 // POST /api/forge/oss/objects - uploads new object to given bucket.
 // Request body must be structured as 'form-data' dictionary
@@ -97,7 +100,7 @@ router.post('/objects', multer({ dest: 'uploads/' }).single('fileToUpload'), asy
         }
         try {
             // Upload an object to bucket using [ObjectsApi](https://github.com/Autodesk-Forge/forge-api-nodejs-client/blob/master/docs/ObjectsApi.md#uploadObject).
-            if(req.body.bucketKey === "samplemodels"){
+            if(req.body.bucketKey === config.credentials.client_id.toLowerCase() + '-' + "samplemodels"){
                 res.status(500).end();
             } 
             else{
