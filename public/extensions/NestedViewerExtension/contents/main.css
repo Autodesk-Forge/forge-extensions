@@ -9,3 +9,8 @@
 #nestedViewerExtensionButton.active {
     filter: none;
 }
+
+#nestedViewerExtensionDropdown {
+    background: #eee;
+    color: #333;
+}
