@@ -114,6 +114,17 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
         this._container.style.height = '330px'; // 400px - 50px (title bar) - 20px (footer)
         this.container.appendChild(this._container);
 
+        this._overlay = document.createElement('div');
+        this._overlay.style.width = '100%';
+        this._overlay.style.height = '100%';
+        this._overlay.style.display = 'none';
+        this._overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        this._overlay.style.color = 'white';
+        this._overlay.style.zIndex = '101';
+        this._overlay.style.justifyContent = 'center';
+        this._overlay.style.alignItems = 'center';
+        this._container.appendChild(this._overlay);
+
         this._dropdown = document.createElement('select');
         this._dropdown.style.position = 'absolute';
         this._dropdown.style.left = '1em';
@@ -160,9 +171,16 @@ class NestedViewerPanel extends Autodesk.Viewing.UI.DockingPanel {
             this._manifest = doc;
             const filterGeom = (geom) => this._filter.indexOf(geom.data.role) !== -1;
             const geometries = doc.getRoot().search({ type: 'geometry' }).filter(filterGeom);
-            this._dropdown.innerHTML = geometries.map(function (geom) {
-                return `<option value="${geom.guid()}">${geom.name()}</option>`;
-            }).join('\n');
+            if (geometries.length > 0) {
+                this._overlay.style.display = 'none';
+                this._dropdown.innerHTML = geometries.map(function (geom) {
+                    return `<option value="${geom.guid()}">${geom.name()}</option>`;
+                }).join('\n');
+            } else {
+                this._overlay.style.display = 'flex';
+                this._overlay.innerText = 'No viewables found';
+                this._dropdown.innerHTML = '';
+            }
             this._onDropdownChanged();
         };
         const onDocumentLoadFailure = () => {
