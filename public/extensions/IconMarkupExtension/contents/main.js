@@ -113,11 +113,20 @@ class IconMarkupExtension extends Autodesk.Viewing.Extension {
             $viewer.append($label);
 
             // now collect the fragIds
-            const _this = this;
-            tree.enumNodeFragments(icon.dbId, function (fragId) {
-                _this._frags['dbId' + icon.dbId].push(fragId);
-                _this.updateIcons(); // re-position of each fragId found
-            });
+            const getChildren = (topParentId, dbId) => {
+                if (tree.getChildCount(dbId) === 0)
+                    getFrags(topParentId, dbId); // get frags for this leaf child
+                tree.enumNodeChildren(dbId, (childId) => {
+                    getChildren(topParentId, childId);
+                })
+            }
+            const getFrags = (topParentId, dbId) => {
+                tree.enumNodeFragments(dbId, (fragId) => {
+                    this._frags['dbId' + topParentId].push(fragId);
+                    this.updateIcons(); // re-position for each fragId found
+                });
+            }
+            getChildren(icon.dbId, icon.dbId);
         }
     }
 
