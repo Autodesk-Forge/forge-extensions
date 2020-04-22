@@ -29,7 +29,7 @@ function init(config){
         element.filestoload.jsfiles.forEach(ele => {loadjscssfile((path+ele), 'js')});
     });
     document.addEventListener('loadextension',function(e){
-        loaderconfig.Viewer = e.detail.viewer;
+        loaderconfig.Viewer = e.detail.viewer;loaderconfig.Viewer.loadExtension(e.detail.extension);
         e.detail.viewer.loadExtension(e.detail.extension);
     })
     document.addEventListener('unloadextension',function(e){
@@ -62,8 +62,10 @@ function init(config){
             if (element.includeinlist === "true") {                
                 let name = element.name;
                 let checked = '';  
+                let editoptions = '';  
                 if(element.loadonstartup === 'true') checked = ' checked ';
-                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle details" data-toggle="popover" ></i><br>';
+                if(element.editoptions === 'true') editoptions = '&nbsp;<i class="fas fa-cog editoptions" data-index="'+index+'"  data-toggle="modal" data-target="#editConfigModal"></i>';
+                ExtensionList += '<label><input class="checkextension" type="checkbox"'+checked+' name="'+name+'" value="'+name+'" data-index="'+index+'"> '+element.displayname+'</label>&nbsp;<i class="fas fa-info-circle details" data-toggle="popover" ></i>'+editoptions+'<br>';
             }
             index++;
         });
@@ -95,7 +97,28 @@ function init(config){
                 }
             });
         }
-        $('[data-toggle="popover"]').popover();
+        // $('[data-toggle="popover"]').popover();
+        let editbuttons = document.getElementsByClassName('editoptions');
+        for (var i=0; i < editbuttons.length; i++) {
+            let index = editbuttons.item(i).attributes['data-index'].value;
+            editbuttons.item(i).onclick = editextensionconfig;
+        }
+        let editoptionindex;
+        function editextensionconfig(e) {
+            editoptionindex = parseInt( e.target.getAttribute('data-index') );
+            let element = Extensions[editoptionindex];
+            console.log(element.options);
+            let options = JSON.stringify(element.options, undefined, 2);
+            document.getElementById("editextensionconfig").value = options;
+            document.getElementById("learnmore").setAttribute('href',element.bloglink);
+        }
+        document.getElementById("saveconfig").onclick = saveoptions;
+        function saveoptions() {
+            console.log(editoptionindex);
+            Extensions[editoptionindex].options = JSON.parse(document.getElementById('editextensionconfig').value);
+            loaderconfig.Viewer.unloadExtension(Extensions[editoptionindex].name);
+            loaderconfig.Viewer.loadExtension(Extensions[editoptionindex].name,Extensions[editoptionindex].options);
+        }
         function togglecustomextension(e) {
             console.log(e.target.value)
             if (e.target.checked) {

@@ -6,6 +6,7 @@
         "filter": ["2d", "3d"],
         "crossSelection": true
     },
+    "editoptions":"true",
     "viewerversion": "7.*",
     "loadonstartup": "false",
     "filestoload": {
