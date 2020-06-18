@@ -25,4 +25,6 @@ viewer.loadExtension("TransformationExtension")
 
 ## How it works
 
+Based on the Three.js [transform control](https://threejs.org/examples/misc_controls_transform.html), the development team implemented the section command using this nice 3d manipulator allowing to select plane, axis and rotation. This is provided out of the box with the [GuiViewer3D](https://forge.autodesk.com/en/docs/viewer/v7/reference/Viewing/GuiViewer3D/)
 
+Reusing some of their implementation to provide the ability to stick the control on the selected mesh and drag it around. It's more challenging that it may seem as the viewer has a complex way to work with Three.js meshes. This is due to enhancements that we created on top of that library to be able to support models with a huge number of meshes.
