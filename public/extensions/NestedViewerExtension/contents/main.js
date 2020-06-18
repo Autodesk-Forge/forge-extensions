@@ -13,9 +13,9 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
 
     load() {
         this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, this._onModelLoaded);
-        if (this._crossSelection) {
-            this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
-        }
+        // if (this._crossSelection) {
+        //     this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
+        // }
         console.log('NestedViewerExtension has been loaded.');
         return true;
     }
