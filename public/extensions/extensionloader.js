@@ -97,6 +97,9 @@ function init(config){
                 }
             });
         }
+        if (window.extension) {
+            $("input:checkbox[value='"+window.extension+"']").click();
+        }
         // $('[data-toggle="popover"]').popover();
         let editbuttons = document.getElementsByClassName('editoptions');
         for (var i=0; i < editbuttons.length; i++) {

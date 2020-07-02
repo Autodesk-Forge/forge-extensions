@@ -1,5 +1,7 @@
 # Icon Markup Extension
 
+[Demo](https://forge-extensions.autodesk.io/?extension=IconMarkupExtension)
+
 Extension showing labels on top of elements, based on their `dbId`.
 
 ![thumbnail](extension.gif)

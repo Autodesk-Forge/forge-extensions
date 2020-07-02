@@ -1,5 +1,7 @@
 # NestedViewerExtension
 
+[Demo](https://forge-extensions.autodesk.io/?extension=NestedViewerExtension)
+
 Forge Viewer extension showing viewables related to the currently loaded model in another instance of the viewer.
 
 ![thumbnail](extension.gif)

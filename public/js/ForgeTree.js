@@ -29,7 +29,7 @@ $(document).ready(function () {
   $('#createBucketModal').on('shown.bs.modal', function () {
     $("#newBucketKey").focus();
   })
-
+  
   $('#hiddenUploadField').change(function () {
     var node = $('#appBuckets').jstree(true).get_selected(true)[0];
     var _this = this;
@@ -75,7 +75,7 @@ function createNewBucket() {
     }
   });
 }
-
+var extensionloaded = false;
 function prepareAppBucketTree() {
   $('#appBuckets').jstree({
     'core': {
@@ -106,7 +106,7 @@ function prepareAppBucketTree() {
     "plugins": ["types", "state", "sort", "contextmenu"],
     contextmenu: { items: autodeskCustomMenu }
   }).on('loaded.jstree', function () {
-    $('#appBuckets').jstree('open_all');
+    $('#appBuckets').jstree('open_all');    
   }).bind("activate_node.jstree", function (evt, data) {
     if (data != null && data.node != null && data.node.type == 'object') {
       $("#forgeViewer").empty();
@@ -129,6 +129,17 @@ function prepareAppBucketTree() {
         });
       })
     }
+  }).on('ready.jstree', function () {
+    if (!extensionloaded) {              
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      let extension = urlParams.get('extension');
+      if (extension) {
+        document.getElementById('dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2FtcGxlbW9kZWxzL09mZmljZS5ydnQ=_anchor').click();
+        window.extension = extension;
+      }
+      extensionloaded = true;
+    }    
   });
 }
 
@@ -156,7 +167,7 @@ function autodeskCustomMenu(autodeskNode) {
         translateFile: {
           label: "Translate",
           action: function () {
-            var treeNode = $('#appBuckets').jstree(true).get_selected(true)[0];
+            var treeNode = $('#appBuckets').jstree(true).get_selected(true)[0];            
             translateObject(treeNode);
           },
           icon: 'glyphicon glyphicon-eye-open'
