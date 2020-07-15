@@ -25,5 +25,5 @@ The following sample uses [font-awesome](https://fontawesome.com) icons, but any
 
 ```xml
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBV72JOytVAAXlvey3kGB-XCu4S5XUxOs" type="text/javascript"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<Google Maps API Key>" type="text/javascript"></script>
 
