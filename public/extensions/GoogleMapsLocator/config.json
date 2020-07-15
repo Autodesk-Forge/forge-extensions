@@ -1,0 +1,18 @@
+{
+    "name":"GoogleMapsLocator",
+    "displayname": "GoogleMapsLocator",
+    "description": "Show location of model on google maps.",
+    "options":{"lattitude":0,"longitude":0},
+    "editoptions":"true",
+    "viewerversion":"7.*",
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":["main.css"],
+        "jsfiles":["main.js"]
+    },
+    "includeinlist":"true",
+    "gif": "extension.gif",
+    "externaldependencies":[
+        {"type": "css", "link": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"}
+    ]
+}
