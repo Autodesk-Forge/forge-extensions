@@ -126,6 +126,8 @@ class MyExtension extends Autodesk.Viewing.Extension {
 </pre>
 Example: [IconMarkupExtension load function](https://github.com/autodesk-forge/forge-extensions/blob/master/public/extensions/IconMarkupExtension/contents/main.js#L26)
 
+> Note: After the new extension is added, please restart the server.
+
 # Understanding extensionloader and using it in forge app
 
 The way loose coupling between extensions and forge app is achived is with custom event, if you want to use extensionloader in your forge app, follow the three steps:
