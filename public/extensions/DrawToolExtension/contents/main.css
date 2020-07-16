@@ -1,0 +1,13 @@
+#box-draw-tool-button {
+    background-image: url(https://img.icons8.com/color/64/000000/left-view.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#sphere-draw-tool-button {
+    background-image: url(https://img.icons8.com/color/24/000000/sphere.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
