@@ -22,6 +22,7 @@ Include the CSS & JS file on your page. This CDN is compatible with the lastest 
 ```
 
 The following sample uses [font-awesome](https://fontawesome.com) icons, but any CSS icon library can be used and google maps api script file.
+Get your Google Maps API Key [here](https://developers.google.com/maps/documentation/javascript/get-api-key)
 
 ```xml
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
