@@ -20,6 +20,7 @@ This sample is a collection of extensions ready to be reused. Just add reference
 2. [Icon Markup](public/extensions/IconMarkupExtension)
 3. [Nested Viewer](public/extensions/NestedViewerExtension)
 4. [Transform](public/extensions/TransformationExtension)
+5. [GoogleMapsLocator](public/extensions/GoogleMapsLocator)
 
 Extensions were created using a [Basic Skeleton](public/extensions/BasicSkeleton).
 
