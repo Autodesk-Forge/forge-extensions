@@ -109,7 +109,7 @@ class IconMarkupExtension extends Autodesk.Viewing.Extension {
             </label>
             `);
             $label.css('display', this.viewer.isNodeVisible(icon.dbId) ? 'block' : 'none');
-            $label.on('click', onClick);
+            $label.on('click', this.options.onClick || onClick);
             $viewer.append($label);
 
             // now collect the fragIds
