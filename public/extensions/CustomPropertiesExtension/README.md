@@ -39,7 +39,7 @@ The `properties` contains the dbId's you assign custom properties to.
 
 ## How it works
 
-The custom propertioes will appear in the Properties palette.
+The custom properties will appear in the Properties palette.
 
 ## Futher reading
 
