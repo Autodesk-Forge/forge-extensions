@@ -21,7 +21,8 @@ This sample is a collection of extensions ready to be reused. Just add reference
 3. [Nested Viewer](public/extensions/NestedViewerExtension)
 4. [Transform](public/extensions/TransformationExtension)
 5. [GoogleMapsLocator](public/extensions/GoogleMapsLocator)
-6. [Draw Tool Extension](https://github.com/Autodesk-Forge/forge-extensions/tree/master/public/extensions/DrawToolExtension)
+6. [Draw Tool Extension](public/extensions/DrawToolExtension)
+7. [Custom Properties Extension](public/extensions/CustomPropertiesExtension)
 
 Extensions were created using a [Basic Skeleton](public/extensions/BasicSkeleton).
 
