@@ -1,0 +1,31 @@
+{
+    "name":"CustomPropertiesExtension",
+    "displayname": "Custom Properties",
+    "description": "Custom Properties example, info provided in config is showed in Properties palette based on selected object's dbId.",
+    "options":{
+        "properties": {
+            "1": {
+                "My Group": {
+                    "My Property": "My Property Value",
+                    "My Second Property": "My Second Property Value"
+                }
+            },
+            "3": {
+                "My Other Group": {
+                    "My Other Property": "My Other Property Value"
+                }
+            }
+        }
+    },
+    "editoptions":"true",
+    "viewerversion":"7.*",
+    "loadonstartup": "false",
+    "filestoload":{
+        "cssfiles":[],
+        "jsfiles":["main.js"]
+    },
+    "bloglink":"https://github.com/autodesk-forge/forge-extensions/tree/master/public/extensions/CustomPropertiesExtension",
+    "includeinlist":"true",
+    "gif": "extension.gif",
+    "externaldependencies":[]    
+}
