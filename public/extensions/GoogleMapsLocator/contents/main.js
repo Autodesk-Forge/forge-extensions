@@ -174,6 +174,13 @@ function MiniMapPanel(viewer, container, id, title, options) {
     this.container.style.height = "300px";
     this.container.style.resize = "auto";
 
+    // here we check the existence of a googlemap div
+    // and remove it if it does
+    var googleMap = document.getElementById('googlemap');
+    if(!!googleMap){
+        googleMap.parentElement.removeChild(googleMap)
+    }
+    
     // this is where we should place the content of our panel
     var div = document.createElement('div');
     div.id = 'googlemap';
