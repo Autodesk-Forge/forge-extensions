@@ -25,20 +25,23 @@ class CustomPropertyPanel extends Autodesk.Viewing.Extensions.ViewerPropertyPane
         this.properties = options.properties || {};
     }
 
-    setProperties(properties, options) {
-        Autodesk.Viewing.Extensions.ViewerPropertyPanel.prototype.setProperties.call(this, properties, options);
+    setAggregatedProperties(propertySet) {
+        Autodesk.Viewing.Extensions.ViewerPropertyPanel.prototype.setAggregatedProperties.call(this, propertySet);
 
         // add your custom properties here
-        var propsForObject = this.properties[this.propertyNodeId.toString()];
-        if (propsForObject) {
-            for (const groupName in propsForObject) {
-                const group = propsForObject[groupName];
-                for (const propName in group) {
-                    const prop = group[propName];
-                    this.addProperty(propName, prop, groupName);
+        const dbids = propertySet.getDbIds();
+        dbids.forEach(id => {
+            var propsForObject = this.properties[id.toString()];
+            if (propsForObject) {
+                for (const groupName in propsForObject) {
+                    const group = propsForObject[groupName];
+                    for (const propName in group) {
+                        const prop = group[propName];
+                        this.addProperty(propName, prop, groupName);
+                    }
                 }
             }
-        }
+        });
     }
 };
 
