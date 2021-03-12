@@ -73,7 +73,7 @@ class IconMarkupExtension extends Autodesk.Viewing.Extension {
 
         };
         this._button.setToolTip(this.options.button.tooltip);
-        this._button.container.children[0].classList.add('fas', this.options.button.icon);
+        this._button.icon.classList.add('fas', this.options.button.icon);
         this._group.addControl(this._button);
     }
 

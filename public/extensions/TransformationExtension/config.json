@@ -5,9 +5,12 @@
     "options":{},
     "loadonstartup": "false",
     "filestoload":{
-        "cssfiles":["main.css"],
-        "jsfiles":["main.js"]
+        "jsfiles":["main.js"],
+        "cssfiles": []
     },
     "gif": "extension.gif",
-    "includeinlist":"true"
+    "includeinlist":"true",
+    "externaldependencies":[
+        {"type": "css", "link": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"}
+    ]
 }

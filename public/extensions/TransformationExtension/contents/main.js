@@ -433,8 +433,6 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
 
     _self.tool = null;
 
-    _self.toolactivated = false;
-
     ///////////////////////////////////////////////////////
     // extension load callback
     //
@@ -456,18 +454,19 @@ Autodesk.ADN.Viewing.Extension.TransformTool =  function (viewer, options) {
 
         // Add a new button to the toolbar group
         this._button = new Autodesk.Viewing.UI.Button('transformExtensionButton');
+        this._button.icon.classList.add("fas", "fa-arrows-alt");
+
         this._button.onClick = (ev) => {
             // Execute an action here
-            if (!_self.toolactivated) {
+            if (this._button.getState() !== Autodesk.Viewing.UI.Button.State.ACTIVE) {
                 _self.initialize();
-                _self.toolactivated = true;
+                this._button.setState(Autodesk.Viewing.UI.Button.State.ACTIVE);
             } else {
                 viewer.toolController.deactivateTool(_self.tool.getName());
-                _self.toolactivated = false;
+                this._button.setState(Autodesk.Viewing.UI.Button.State.INACTIVE);
             }
         };
-        this._button.setToolTip('Transform Extension');
-        this._button.addClass('transformextensionicon');
+        this._button.setToolTip('Transform Object');
         this._group.addControl(this._button);
     };
 
