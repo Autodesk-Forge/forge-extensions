@@ -13,9 +13,9 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
 
     load() {
         this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, this._onModelLoaded);
-        // if (this._crossSelection) {
-        //     this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
-        // }
+        if (this._crossSelection) {
+            this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, this._onSelectionChanged);
+        }
         console.log('NestedViewerExtension has been loaded.');
         return true;
     }
@@ -47,8 +47,26 @@ class NestedViewerExtension extends Autodesk.Viewing.Extension {
 
     onSelectionChanged() {
         if (this._panel) {
-            this._panel.select(this.viewer.getSelection());
+            // Avoid endless loop between main viewer and 
+            // the nested viewer calling each other's select() method
+            let vs = this.viewer.getSelection();
+            let ps = this._panel._viewer.getSelection();
+            if (!this.isSelectionSame(vs, ps)) {
+                this._panel.select(vs);
+            }
         }
+    }
+
+    isSelectionSame(sel1, sel2) {
+        if (sel1.length !== sel2.length)
+            return false;
+
+        for (let i = 0; i < sel1.length; i++) {
+            if (sel1[i] !== sel2[i])
+                return false;
+        }
+
+        return true;
     }
 
     onToolbarCreated() {
