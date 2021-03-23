@@ -68,6 +68,10 @@ class DrawTool extends Autodesk.Viewing.ToolInterface {
     handleButtonDown(event, button) {
         // If left button is pressed and we're not drawing already
         if (button === 0 && this.state === '') {
+            let boxRectangle = event.target.getBoundingClientRect();
+            let clientX = event.clientX - boxRectangle.left;
+            let clientY = event.clientY - boxRectangle.top;
+
             // Create new geometry and add it to an overlay
             if (this.mode === 'box') {
                 const geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(1, 1, 1));
@@ -81,7 +85,7 @@ class DrawTool extends Autodesk.Viewing.ToolInterface {
             this.viewer.impl.addOverlay(DrawToolOverlay, this.mesh);
 
             // Initialize the 3 values that will control the geometry's size (1st corner in the XY plane, 2nd corner in the XY plane, and height)
-            this.corner1 = this.corner2 = this._intersect(event.clientX, event.clientY);
+            this.corner1 = this.corner2 = this._intersect(clientX, clientY);
             this.height = 0.1;
             this._update();
             this.state = 'xy'; // Now we're drawing in the XY plane
@@ -95,11 +99,15 @@ class DrawTool extends Autodesk.Viewing.ToolInterface {
     handleButtonUp(event, button) {
         // If left button is released and we're drawing in the XY plane
         if (button === 0 && this.state === 'xy') {
+            let boxRectangle = event.target.getBoundingClientRect();
+            let clientX = event.clientX - boxRectangle.left;
+            let clientY = event.clientY - boxRectangle.top;
+
             // Update the 2nd corner in the XY plane and switch to the 'z' state
-            this.corner2 = this._intersect(event.clientX, event.clientY);
+            this.corner2 = this._intersect(clientX, clientY);
             this._update();
             this.state = 'z';
-            this.lastClientY = event.clientY; // Store the current mouse Y coordinate to compute height later on
+            this.lastClientY = clientY; // Store the current mouse Y coordinate to compute height later on
             return true; // Stop the event from going to other tools in the stack
         }
         // Otherwise let another tool handle the event, and make note that our tool is no longer bypassed
@@ -108,14 +116,18 @@ class DrawTool extends Autodesk.Viewing.ToolInterface {
     }
 
     handleMouseMove(event) {
+        let boxRectangle = event.target.getBoundingClientRect();
+        let clientX = event.clientX - boxRectangle.left;
+        let clientY = event.clientY - boxRectangle.top;
+
         if (!this.bypassed && this.state === 'xy') {
             // If we're in the "XY plane drawing" state, and not bypassed by another tool
-            this.corner2 = this._intersect(event.clientX, event.clientY);
+            this.corner2 = this._intersect(clientX, clientY);
             this._update();
             return true;
         } else if (!this.bypassed && this.state === 'z') {
             // If we're in the "height drawing" state, and not bypassed by another tool
-            this.height = this.lastClientY - event.clientY;
+            this.height = this.lastClientY - clientY;
             this._update();
             return true;
         }
