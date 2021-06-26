@@ -1,0 +1,16 @@
+{
+    "name": "AecGridsExtension",
+    "displayname": "AEC Grids",
+    "description": "A Forge Viewer extension for loading and rendering Revit Grids by AEC Model Data",
+    "options": {},
+    "viewerversion": "7.*",
+    "loadonstartup": "false",
+    "filestoload": {
+        "cssfiles": [],
+        "jsfiles": [
+            "main.js"
+        ]
+    },
+    "bloglink": "",
+    "includeinlist": "true"
+}
