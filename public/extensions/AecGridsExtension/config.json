@@ -6,11 +6,31 @@
     "viewerversion": "7.*",
     "loadonstartup": "false",
     "filestoload": {
-        "cssfiles": [],
+        "cssfiles": [
+            "main.css"
+        ],
         "jsfiles": [
             "main.js"
         ]
     },
     "bloglink": "",
-    "includeinlist": "true"
+    "includeinlist": "true",
+    "externaldependencies": [
+        {
+            "type": "js",
+            "link": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        },
+        {
+            "type": "js",
+            "link": "https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/jstree.min.js"
+        },
+        {
+            "type": "css",
+            "link": "https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css"
+        },
+        {
+            "type": "css",
+            "link": "https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default-dark/style.min.css"
+        }
+    ]
 }
