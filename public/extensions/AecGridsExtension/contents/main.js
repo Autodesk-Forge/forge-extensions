@@ -415,15 +415,20 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
                     break;
             }
         } catch (ex) {
-            console.warn(`[AecGridsExtension]: ${ex.message}`);
+            const msg = `[AecGridsExtension]: ${ex.message}`;
+            console.warn(msg);
+            alert(msg);
         }
     }
 
     async load() {
         // Pre-load level extension 
         const aecdata = await this.viewer.model.getDocumentNode().getDocument().downloadAecModelData();
-        if (!aecdata || aecdata.grids || aecdata.grids.length <= 0) 
-            console.warn('[AecGridsExtension]: Empty AEC model data or No Grid data found in this model\'s AEC model data.');
+        if (!aecdata || !aecdata.grids || aecdata.grids.length <= 0) {
+            const msg = '[AecGridsExtension]: Empty AEC model data or No Grid data found in this model\'s AEC model data.'
+            console.warn(msg);
+            alert(msg);
+        }
 
         await this.viewer.loadExtension('Autodesk.AEC.LevelsExtension', { doNotCreateUI: true });
 
