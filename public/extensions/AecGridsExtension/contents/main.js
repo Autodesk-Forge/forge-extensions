@@ -144,6 +144,9 @@ class AecGrid {
 
         const grids = aecdata.grids;
 
+        if (!grids || grids.length <= 0)
+            throw new Error('No Grid data found in this model\'s AEC model data.');
+
         for (let i = 0; i < grids.length; i++) {
             const grid = grids[i];
             this.createGrid(grid);
@@ -393,28 +396,35 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
     }
 
     async onGridChanged(event) {
-        let grid = null;
-        switch (event.action) {
-            case 'attach':
-                grid = new AecGrid(this.viewer, { level: event.level, heightOverride: event.level.zMin });
-                await grid.build();
-                this.grids.push(grid);
-                break;
-            case 'detach':
-                const idx = this.grids.findIndex(g => g.options.level.name === event.level.name);
-                if (idx <= -1)
-                    return;
+        try {
+            let grid = null;
+            switch (event.action) {
+                case 'attach':
+                    grid = new AecGrid(this.viewer, { level: event.level, heightOverride: event.level.zMin });
+                    await grid.build();
+                    this.grids.push(grid);
+                    break;
+                case 'detach':
+                    const idx = this.grids.findIndex(g => g.options.level.name === event.level.name);
+                    if (idx <= -1)
+                        return;
 
-                const removed = this.grids.splice(idx, 1);
-                grid = removed[0];
-                grid.destroy();
-                break;
+                    const removed = this.grids.splice(idx, 1);
+                    grid = removed[0];
+                    grid.destroy();
+                    break;
+            }
+        } catch (ex) {
+            console.warn(`[AecGridsExtension]: ${ex.message}`);
         }
     }
 
     async load() {
         // Pre-load level extension 
-        await this.viewer.model.getDocumentNode().getDocument().downloadAecModelData();
+        const aecdata = await this.viewer.model.getDocumentNode().getDocument().downloadAecModelData();
+        if (!aecdata || aecdata.grids || aecdata.grids.length <= 0) 
+            console.warn('[AecGridsExtension]: Empty AEC model data or No Grid data found in this model\'s AEC model data.');
+
         await this.viewer.loadExtension('Autodesk.AEC.LevelsExtension', { doNotCreateUI: true });
 
         this.viewer.addEventListener(
