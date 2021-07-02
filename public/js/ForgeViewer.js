@@ -46,6 +46,26 @@ function onDocumentLoadSuccess(doc) {
       // });      
       // document.dispatchEvent(LoadExtensionEvent);
   });
+
+  viewer.addEventListener(
+    Autodesk.Viewing.EXTENSION_LOADED_EVENT,
+    (event) => {
+      if (!event.extensionId) return;
+
+      const checkbox = document.querySelector(`input.checkextension[name="${event.extensionId}"]:not(:checked)`);
+      if (checkbox)
+        checkbox.checked = true;
+    });
+
+  viewer.addEventListener(
+    Autodesk.Viewing.EXTENSION_UNLOADED_EVENT,
+    (event) => {
+      if (!event.extensionId) return;
+
+      const checkbox = document.querySelector(`input.checkextension[name="${event.extensionId}"]:checked`);
+      if (checkbox)
+        checkbox.checked = false;
+    });
 }
 
 function onDocumentLoadFailure(viewerErrorCode) {

@@ -6,6 +6,7 @@
         "alertOnDefaultFailure": true,
         "autoUnloadOnNoAecModelData": true
     },
+    "editoptions":"true",
     "viewerversion": "7.*",
     "loadonstartup": "false",
     "filestoload": {

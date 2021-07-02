@@ -362,6 +362,8 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
      * @param {boolean} [options.alertOnDefaultFailure=false] When the {options.onFailureCallback} is using the default one, this option can be used to control if viewer will show error messages with alert().
      */
     constructor(viewer, options) {
+        options = options || {};
+
         if (!options.onFailureCallback || (typeof options.onFailureCallback !== 'function')) {
             options.onFailureCallback = (error) => {
                 let msg = `[${error.name}]: ${error.message}`;
@@ -457,7 +459,7 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
         // Pre-load level extension 
         const aecdata = await Autodesk.Viewing.Document.getAecModelData(this.viewer.model.getDocumentNode());
         if (!aecdata || !aecdata.grids || aecdata.grids.length <= 0) {
-            let errorMsg = 'This model doesn\'t contain AEC Model Data or No Grid data found in this model\'s AEC AEC Model Data.';
+            let errorMsg = 'This model doesn\'t contain AEC Model Data or No Grid data found in this model\'s AEC Model Data.';
 
             if (this.options.autoUnloadOnNoAecModelData == false) {
                 this.handleFailure(errorMsg);
