@@ -139,8 +139,11 @@ class AecGrid {
         await this.init();
 
         let aecdata = this.viewer.model.getDocumentNode().getAecModelData();
-        if (!aecdata)
-            aecdata = await this.viewer.model.getDocumentNode().getDocument().downloadAecModelData();
+        if (!aecdata) {
+            aecdata = await Autodesk.Viewing.Document.getAecModelData(this.viewer.model.getDocumentNode());
+            if (!aecdata)
+                throw new Error('AEC model data not found');
+        }
 
         const grids = aecdata.grids;
 
@@ -346,8 +349,29 @@ class AecGridsPanel extends Autodesk.Viewing.UI.DockingPanel {
     }
 }
 
+/**
+ * A Forge Viewer extension for loading and rendering Revit Grids by AEC Model Data
+ * @class
+ */
 class AecGridsExtension extends Autodesk.Viewing.Extension {
+    /**
+     * @param {Viewer3D} viewer The Forge Viewer instance
+     * @param {Object} options The extension options
+     * @param {function} [options.onFailureCallback=(error, errorMessage) => { console.warn(`[${error.name}]: ${error.message}`); }] A failure callback that will be called when this model doesn't have AEC Model Data or grids data. By default, it will show warning message in the console.
+     * @param {boolean} [options.autoUnloadOnNoAecModelData=true] If false, AecGridsExtension won't be unloaded when this model doesn't have AEC Model Data or grids data.
+     * @param {boolean} [options.alertOnDefaultFailure=false] When the {options.onFailureCallback} is using the default one, this option can be used to control if viewer will show error messages with alert().
+     */
     constructor(viewer, options) {
+        if (!options.onFailureCallback || (typeof options.onFailureCallback !== 'function')) {
+            options.onFailureCallback = (error) => {
+                let msg = `[${error.name}]: ${error.message}`;
+                console.warn(msg);
+
+                if (options.alertOnDefaultFailure == true)
+                    alert(msg);
+            };
+        }
+
         super(viewer, options);
 
         this.grids = [];
@@ -415,19 +439,51 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
                     break;
             }
         } catch (ex) {
-            const msg = `[AecGridsExtension]: ${ex.message}`;
-            console.warn(msg);
-            alert(msg);
+            this.handleFailure(ex, ex.message);
         }
     }
 
+    handleFailure(msg) {
+        const error = new Error(msg);
+        error.name = 'AecGridsExtensionError';
+
+        const { onFailureCallback } = this.options;
+        onFailureCallback && onFailureCallback(error, msg);
+    }
+
     async load() {
+        await this.viewer.waitForLoadDone();
+
         // Pre-load level extension 
-        const aecdata = await this.viewer.model.getDocumentNode().getDocument().downloadAecModelData();
+        const aecdata = await Autodesk.Viewing.Document.getAecModelData(this.viewer.model.getDocumentNode());
         if (!aecdata || !aecdata.grids || aecdata.grids.length <= 0) {
-            const msg = '[AecGridsExtension]: Empty AEC model data or No Grid data found in this model\'s AEC model data.'
-            console.warn(msg);
-            alert(msg);
+            let errorMsg = 'This model doesn\'t contain AEC Model Data or No Grid data found in this model\'s AEC AEC Model Data.';
+
+            if (this.options.autoUnloadOnNoAecModelData == false) {
+                this.handleFailure(errorMsg);
+            } else {
+                errorMsg += ' Unloading extension ...';
+                this.handleFailure(errorMsg);
+
+                const onFailureUnloadExtensionHandler = (event) => {
+                    if (event.extensionId != 'AecGridsExtension') return;
+
+                    this.viewer.removeEventListener(
+                        Autodesk.Viewing.EXTENSION_LOADED_EVENT,
+                        onFailureUnloadExtensionHandler,
+                    );
+
+                    console.warn('AecGridsExtension is unloaded since this model doesn\'t contain AEC Model Data.');
+                    this.viewer.unloadExtension(event.extensionId);
+                };
+
+                this.viewer.addEventListener(
+                    Autodesk.Viewing.EXTENSION_LOADED_EVENT,
+                    onFailureUnloadExtensionHandler
+                );
+            }
+
+            return false;
         }
 
         await this.viewer.loadExtension('Autodesk.AEC.LevelsExtension', { doNotCreateUI: true });
@@ -436,6 +492,11 @@ class AecGridsExtension extends Autodesk.Viewing.Extension {
             AEC_GRIDS_CHANGED_EVENT,
             this.onGridChanged
         );
+
+        if (this.viewer.toolbar) {
+            // Toolbar is already available, create the UI
+            this.createUI();
+        }
 
         return true;
     }
