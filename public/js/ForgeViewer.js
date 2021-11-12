@@ -17,12 +17,15 @@
 /////////////////////////////////////////////////////////////////////
 
 var viewer;
+var fileName;
 
-function launchViewer(urn) {
+function launchViewer(urn, name) {
   var options = {
     env: 'AutodeskProduction',
     getAccessToken: getForgeToken
   };
+
+  fileName = name;
 
   Autodesk.Viewing.Initializer(options, () => {
     viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer'));

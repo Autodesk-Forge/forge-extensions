@@ -20,11 +20,7 @@ if (!window.XLSX) alert('Sheet JS is required for this sample');
 
 let ForgeXLS = {
 
-  downloadXLSX: function (urn, fileName, token, status, fileType) {    
-    if (fileType.indexOf('rvt') == -1) {
-      if (status) status(true, 'Not a Revit file. Only Revit files are supported, at the moment. Aborting conversion.');
-      return;
-    }
+  downloadXLSX: function (fileName, status) {
 
     if (status) {
       status(false, 'Preparing ' + fileName);
