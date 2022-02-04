@@ -23,6 +23,7 @@ This sample is a collection of extensions ready to be reused. Just add reference
 5. [GoogleMapsLocator](public/extensions/GoogleMapsLocator)
 6. [Draw Tool Extension](public/extensions/DrawToolExtension)
 7. [Custom Properties Extension](public/extensions/CustomPropertiesExtension)
+8. [Custom Properties Extension](public/extensions/XLSExtension)
 
 Extensions were created using a [Basic Skeleton](public/extensions/BasicSkeleton).
 
