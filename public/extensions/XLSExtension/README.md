@@ -4,7 +4,7 @@ This extension demonstrates how to extract metadata and export it as excel file
 
 [Demo](https://forge-extensions.autodesk.io/?extension=XLSExtension)
 
-![thumbnail](extension.gif)
+![thumbnail](extension.jpg)
 
 ## Usage
 
