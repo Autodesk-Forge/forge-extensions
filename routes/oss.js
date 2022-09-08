@@ -17,8 +17,8 @@
 /////////////////////////////////////////////////////////////////////
 
 const fs = require('fs');
+const formidable = require('express-formidable');
 const express = require('express');
-const multer  = require('multer');
 const { BucketsApi, ObjectsApi, PostBucketsPayload } = require('forge-apis');
 
 const { getClient, getInternalToken } = require('./common/oauth');
@@ -72,45 +72,34 @@ router.get('/buckets', async (req, res, next) => {
     }
 });
 
-// POST /api/forge/oss/buckets - creates a new bucket.
-// Request body must be a valid JSON in the form of { "bucketKey": "<new_bucket_name>" }.
-// This sample will not allow creation of new buckets
-/*
-router.post('/buckets', async (req, res, next) => {
-    let payload = new PostBucketsPayload();
-    payload.bucketKey = config.credentials.client_id.toLowerCase() + '-' + req.body.bucketKey;
-    payload.policyKey = 'transient'; // expires in 24h
+router.post('/upload', formidable(), async function (req, res, next) {
+    const file = req.files.fileToUpload
+    if (!file) {
+        res.status(400).send('The required field ("model-file") is missing.');
+        return;
+    }
     try {
-        // Create a bucket using [BucketsApi](https://github.com/Autodesk-Forge/forge-api-nodejs-client/blob/master/docs/BucketsApi.md#createBucket).
-        await new BucketsApi().createBucket(payload, {}, req.oauth_client, req.oauth_token);
+        await uploadObject(req.fields.bucketKey,file.name, file.path);
         res.status(200).end();
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
-*/
 
-// POST /api/forge/oss/objects - uploads new object to given bucket.
-// Request body must be structured as 'form-data' dictionary
-// with the uploaded file under "fileToUpload" key, and the bucket name under "bucketKey".
-router.post('/objects', multer({ dest: 'uploads/' }).single('fileToUpload'), async (req, res, next) => {    
-    fs.readFile(req.file.path, async (err, data) => {
-        if (err) {
-            next(err);
-        }
-        try {
-            // Upload an object to bucket using [ObjectsApi](https://github.com/Autodesk-Forge/forge-api-nodejs-client/blob/master/docs/ObjectsApi.md#uploadObject).
-            if(req.body.bucketKey === config.credentials.client_id.toLowerCase() + '-' + "samplemodels"){
-                res.status(500).end();
-            } 
-            else{
-                await new ObjectsApi().uploadObject(req.body.bucketKey, req.file.originalname, data.length, data, {}, req.oauth_client, req.oauth_token);
-                res.status(200).end();                
-            }
-        } catch(err) {
-            next(err);
-        }
-    });
-});
+async function uploadObject(bucketKey,objectName, filePath) {
+    const buffer = await fs.promises.readFile(filePath);
+    const results = await new ObjectsApi().uploadResources(
+        bucketKey,
+        [{ objectKey: objectName, data: buffer }],
+        { useAcceleration: false, minutesExpiration: 15 },
+        null,
+        await getInternalToken()
+    );
+    if (results[0].error) {
+        throw results[0].completed;
+    } else {
+        return results[0].completed;
+    }
+}
 
 module.exports = router;

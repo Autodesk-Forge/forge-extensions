@@ -42,7 +42,7 @@ $(document).ready(function () {
         formData.append('bucketKey', node.id);
 
         $.ajax({
-          url: '/api/forge/oss/objects',
+          url: '/api/forge/oss/upload',
           data: formData,
           processData: false,
           contentType: false,
